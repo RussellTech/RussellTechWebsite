@@ -14,6 +14,7 @@ concurrency:
 
 env:
   ASTRO_TELEMETRY_DISABLED: "1"
+  PUBLIC_TURNSTILE_SITE_KEY: ${{ secrets.PUBLIC_TURNSTILE_SITE_KEY }}
 
 jobs:
   quality:
@@ -80,11 +81,30 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install deployment dependencies
+        run: npm ci
+
       - name: Download production build
         uses: actions/download-artifact@v4
         with:
           name: production-build
           path: dist
+
+      - name: Ensure Cloudflare Pages project exists
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          pages_projects_json="$(npx wrangler pages project list --json)"
+          if ! printf '%s' "$pages_projects_json" | rg -q '"name"[[:space:]]*:[[:space:]]*"russell-tech"'; then
+            npx wrangler pages project create russell-tech --production-branch=main
+          fi
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
