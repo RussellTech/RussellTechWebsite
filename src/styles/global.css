@@ -807,6 +807,57 @@ main li a:hover {
     -0.06em 0 rgba(69, 217, 255, 0.85),
     0.06em 0 rgba(255, 79, 199, 0.85);
 }
+
+main {
+  animation: rt-page-arrive 0.48s steps(3, end) both;
+}
+
+body.rt-page-leaving main {
+  animation: rt-page-leave 0.22s steps(2, end) both;
+}
+
+@keyframes rt-page-arrive {
+  from {
+    opacity: 0;
+    filter: brightness(1.45) saturate(1.3);
+    transform: translateY(0.35rem);
+  }
+  55% {
+    opacity: 0.9;
+    filter: brightness(1.08) saturate(1.12);
+  }
+  to {
+    opacity: 1;
+    filter: none;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rt-page-leave {
+  from {
+    opacity: 1;
+    filter: none;
+    transform: translateX(0);
+  }
+  45% {
+    opacity: 0.8;
+    filter: contrast(1.5) drop-shadow(-3px 0 rgba(69, 217, 255, 0.65))
+      drop-shadow(3px 0 rgba(255, 79, 199, 0.65));
+    transform: translateX(-0.25rem);
+  }
+  to {
+    opacity: 0;
+    filter: brightness(1.5);
+    transform: translateX(0.35rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  main,
+  body.rt-page-leaving main {
+    animation: none;
+  }
+}
 .prose {
   max-width: 720px;
 }
@@ -897,15 +948,50 @@ main li a:hover {
     ),
     linear-gradient(135deg, #0a373c, #17235a);
 }
+.project-visual.has-image {
+  padding: 0;
+  isolation: isolate;
+}
+.project-visual.has-image picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.project-visual.has-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  object-fit: cover;
+  object-position: center;
+  transition:
+    transform 0.55s cubic-bezier(0.2, 0.75, 0.25, 1),
+    filter 0.35s ease;
+}
+.project-visual.has-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    120deg,
+    rgba(3, 9, 20, 0.12),
+    transparent 55%,
+    rgba(169, 74, 244, 0.2)
+  );
+  mix-blend-mode: screen;
+}
 html[data-theme="light"] .project-visual {
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.3),
     0 14px 32px rgba(48, 56, 80, 0.12);
 }
 .project-mark {
+  max-width: 80%;
   font-size: clamp(2rem, 6vw, 5rem);
   font-weight: 800;
   letter-spacing: -0.08em;
+  line-height: 0.9;
 }
 .project-ui {
   position: absolute;
@@ -1111,6 +1197,43 @@ html[data-theme="light"] .trust-strip {
   text-shadow:
     -0.1em 0 rgba(69, 217, 255, 0.95),
     0.1em 0 rgba(255, 79, 199, 0.95);
+}
+.project-card:hover .project-visual.has-image img,
+.project-visual.interactive-visual:hover.has-image img {
+  transform: scale(1.035);
+  filter: saturate(1.18) contrast(1.05);
+}
+.project-visual.interactive-visual {
+  transition:
+    transform 0.35s cubic-bezier(0.2, 0.75, 0.25, 1),
+    box-shadow 0.35s ease,
+    outline 0.35s ease;
+}
+.project-visual.interactive-visual:hover {
+  transform: translateY(-0.35rem) scale(1.006);
+  outline: 2px solid rgba(255, 79, 199, 0.5);
+  outline-offset: -0.35rem;
+  box-shadow:
+    5px 5px 0 rgba(255, 79, 199, 0.18),
+    0 24px 64px rgba(50, 121, 255, 0.2),
+    0 0 34px rgba(169, 74, 244, 0.16);
+}
+.project-visual.interactive-visual:hover .project-mark {
+  animation: rt-chromatic-settle 0.72s steps(2, end);
+  text-shadow:
+    -0.06em 0 rgba(69, 217, 255, 0.7),
+    0.06em 0 rgba(255, 79, 199, 0.7);
+}
+.project-visual.interactive-visual:hover .project-visual-eyebrow,
+.project-visual.interactive-visual:hover .project-visual-title {
+  transform: translateX(0.12rem);
+  color: #fff;
+  text-shadow:
+    -0.1em 0 rgba(69, 217, 255, 0.95),
+    0.1em 0 rgba(255, 79, 199, 0.95);
+}
+.project-visual.interactive-visual:hover .project-visual-title {
+  animation: rt-chromatic-settle 0.72s steps(2, end);
 }
 
 .card:not(.project-card):not(.founder-card) {
