@@ -1,4 +1,5 @@
 export type RuntimeEnv = Cloudflare.Env & {
+  EMAIL: SendEmail;
   CONTACT_RATE_LIMITER?: RateLimit;
   TURNSTILE_SECRET_KEY?: string;
 };
