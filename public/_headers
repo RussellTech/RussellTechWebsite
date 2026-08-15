@@ -8,6 +8,7 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), display-capture=(), geolocation=(), microphone=(), payment=(), usb=()
   X-Permitted-Cross-Domain-Policies: none
+  Link: </llms.txt>; rel="describedby"; type="text/plain", </sitemap-index.xml>; rel="sitemap"; type="application/xml"
 
 /api/*
   Cache-Control: no-store
