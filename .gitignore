@@ -13,3 +13,7 @@ dist/
 coverage/
 test-results/
 worker-configuration.d.ts
+public/projects/*.avif
+public/projects/*.webp
+public/images/*.avif
+public/images/*.webp

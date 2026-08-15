@@ -56,7 +56,7 @@ const socialImage = props.image ?? getSocialImagePath(Astro.url.pathname);
     />
     <link rel="manifest" href="/site.webmanifest" />
     <script is:inline src="/theme.js"></script>
-    <script is:inline>
+    <script>
       document.documentElement.classList.add('rt-motion-fallback');
     </script>
     <SeoHead {...props} image={socialImage} />
@@ -65,12 +65,12 @@ const socialImage = props.image ?? getSocialImagePath(Astro.url.pathname);
     <Header />
     <main><slot /></main>
     <Footer />
-    <script is:inline>
+    <script>
       if (document.documentElement.classList.contains('rt-motion-fallback')) {
         const revealItems = document.querySelectorAll(
           '.section, .page-hero, .trust-strip, .project-card, .founder-card, .post-row'
         );
-        const reveal = (item) => item.classList.add('is-visible');
+        const reveal = (item: Element) => item.classList.add('is-visible');
 
         if ('IntersectionObserver' in window) {
           const observer = new IntersectionObserver(
@@ -91,6 +91,17 @@ const socialImage = props.image ?? getSocialImagePath(Astro.url.pathname);
 
         window.setTimeout(() => revealItems.forEach(reveal), 1500);
       }
+    </script>
+    <script>
+      document.addEventListener('click', (event) => {
+        const link = event.target instanceof Element ? event.target.closest('a') : null;
+        if (!link || link.target || link.hasAttribute('download')) return;
+        if (link.origin !== window.location.origin || link.pathname === window.location.pathname) return;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        event.preventDefault();
+        document.body.classList.add('rt-page-leaving');
+        window.setTimeout(() => { window.location.href = link.href; }, 220);
+      });
     </script>
   </body>
 </html>

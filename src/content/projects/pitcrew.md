@@ -7,6 +7,8 @@ featured: true
 accent: green
 tags: ["Product development", "Web application", "Infrastructure"]
 year: "2023"
+image: "/projects/pitcrew-homepage.png"
+imageAlt: "Pit Crew fantasy motorsport league homepage with race standings artwork and navigation."
 ---
 
 ## What it is

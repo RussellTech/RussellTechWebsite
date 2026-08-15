@@ -13,6 +13,8 @@ const projects = defineCollection({
     accent: z.string().default("blue"),
     tags: z.array(z.string()),
     year: z.string().optional(),
+    image: z.string().optional(),
+    imageAlt: z.string().optional(),
   }),
 });
 

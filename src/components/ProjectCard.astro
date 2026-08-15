@@ -1,5 +1,6 @@
 ---
-interface Props { title: string; client: string; category: string; summary: string; slug: string; accent: string; }
-const { title, client, category, summary, slug, accent } = Astro.props;
+interface Props { title: string; client: string; category: string; summary: string; slug: string; accent: string; image?: string; imageAlt?: string; }
+const { title, client, category, summary, slug, accent, image, imageAlt } = Astro.props;
+const imageBase = image?.replace(/\.[^/.]+$/, '');
 ---
-<a class="card project-card" href={`/projects/${slug}/`} aria-label={`Read the ${title} case study`}><div class={`project-visual ${accent}`}><div class="project-ui glass"><span></span><span></span><span></span><strong>{category}</strong></div><span class="project-mark">{title.split(' ').map(word => word[0]).join('')}</span></div><div class="project-card-body"><span class="eyebrow">{category} · {client}</span><h3>{title}</h3><p>{summary}</p><span class="case-study-link">Read case study <span aria-hidden="true">↗</span></span></div></a>
+<a class="card project-card" href={`/projects/${slug}/`} aria-label={`Read the ${title} case study`}><div class={`project-visual ${accent}${image ? ' has-image' : ''}`}>{image ? <picture><source srcset={`${imageBase}.avif`} type="image/avif" /><source srcset={`${imageBase}.webp`} type="image/webp" /><img src={image} alt={imageAlt ?? `${title} project screenshot`} loading="lazy" decoding="async" /></picture> : <><div class="project-ui glass"><span></span><span></span><span></span><strong>{category}</strong></div><span class="project-mark">{title}</span></>}</div><div class="project-card-body"><span class="eyebrow">{category} · {client}</span><h3>{title}</h3><p>{summary}</p><span class="case-study-link">Read case study <span aria-hidden="true">↗</span></span></div></a>
