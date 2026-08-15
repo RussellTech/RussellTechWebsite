@@ -10,7 +10,7 @@
   "scripts": {
     "brand:generate": "node scripts/generate-brand-assets.mjs",
     "dev": "astro dev",
-    "build": "astro check && node scripts/optimize-images.mjs && astro build && node scripts/generate-social-images.mjs && node scripts/check-generated-routes.mjs",
+    "build": "wrangler types && astro check && node scripts/optimize-images.mjs && astro build && node scripts/generate-social-images.mjs && node scripts/check-generated-routes.mjs",
     "preview": "astro preview",
     "social:generate": "node scripts/generate-social-images.mjs",
     "format": "prettier --write .",
