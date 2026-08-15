@@ -1,4 +1,4 @@
 ---
-import { getCollection } from 'astro:content'; import Layout from '../../components/Layout.astro'; import ProjectCard from '../../components/ProjectCard.astro'; const projects=await getCollection('projects');
+import { getCollection } from 'astro:content'; import Layout from '../../components/Layout.astro'; import ProjectCard from '../../components/ProjectCard.astro'; import { isActiveProject } from '../../data/projects'; const projects=(await getCollection('projects')).filter(project => isActiveProject(project.id.replace(/\.md$/, '')));
 ---
 <Layout title="Work | Russell Tech" description="Selected apps, websites, custom CMS platforms and digital products built by Russell Tech."><section class="page-hero shell"><span class="eyebrow">Selected work</span><h1>Ideas into<br /><span class="gradient-text">useful things.</span></h1><p class="lead">A closer look at apps, websites, content systems and infrastructure — including the problems they were built to solve.</p></section><section class="section shell"><div class="grid two">{projects.map(project=><ProjectCard {...project.data} slug={project.id.replace(/\.md$/, '')} />)}</div></section></Layout>

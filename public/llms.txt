@@ -20,10 +20,7 @@
 
 ## Selected work
 
-- [PE Pro](https://russell-tech.co.uk/projects/pe-pro/): a mobile-first product for PE teachers covering planning, professional development, resources, assessments and reporting.
 - [Pitcrew](https://russell-tech.co.uk/projects/pitcrew/): a car maintenance product covering service planning, fuel and maintenance history, reminders, vehicles and spending.
-- [Testing Services UK](https://russell-tech.co.uk/projects/testing-services-uk/): a specialist services website and custom CMS for electrical and fire inspection, testing and installation services.
-- [Jansons Direct Linens](https://russell-tech.co.uk/projects/jansons-direct-linens/): a customer-facing website designed to make a product range easier to browse and enquire about.
 
 ## Useful pages
 

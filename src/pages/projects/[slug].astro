@@ -1,10 +1,13 @@
 ---
 import { getCollection, render } from 'astro:content';
 import Layout from '../../components/Layout.astro';
+import { isActiveProject } from '../../data/projects';
 
 export async function getStaticPaths() {
   const projects = await getCollection('projects');
-  return projects.map(project => ({ params: { slug: project.id.replace(/\.md$/, '') }, props: { project } }));
+  return projects
+    .filter(project => isActiveProject(project.id.replace(/\.md$/, '')))
+    .map(project => ({ params: { slug: project.id.replace(/\.md$/, '') }, props: { project } }));
 }
 
 const { project } = Astro.props;

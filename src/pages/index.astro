@@ -1,6 +1,6 @@
 ---
-import { getCollection } from 'astro:content'; import Layout from '../components/Layout.astro'; import ProjectCard from '../components/ProjectCard.astro'; import CookieNotice from '../components/CookieNotice.astro';
-const projects = (await getCollection('projects')).filter(project => project.data.featured);
+import { getCollection } from 'astro:content'; import Layout from '../components/Layout.astro'; import ProjectCard from '../components/ProjectCard.astro'; import CookieNotice from '../components/CookieNotice.astro'; import { isActiveProject } from '../data/projects';
+const projects = (await getCollection('projects')).filter(project => project.data.featured && isActiveProject(project.id.replace(/\.md$/, '')));
 ---
 <script>
   const initialiseHeroCode = () => {

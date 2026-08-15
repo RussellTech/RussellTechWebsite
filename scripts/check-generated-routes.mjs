@@ -13,11 +13,13 @@ const contentSlugs = (collection) =>
     .filter((file) => file.endsWith(".md"))
     .map((file) => file.replace(/\.md$/, ""));
 
+const activeProjectSlugs = ["pitcrew"];
+
 const expectedRoutes = [
   "/services/",
   ...serviceSlugs.map((slug) => `/services/${slug}/`),
   "/projects/",
-  ...contentSlugs("projects").map((slug) => `/projects/${slug}/`),
+  ...activeProjectSlugs.map((slug) => `/projects/${slug}/`),
   "/insights/",
   ...contentSlugs("insights").map((slug) => `/insights/${slug}/`),
 ];

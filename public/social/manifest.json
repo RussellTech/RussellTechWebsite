@@ -55,24 +55,9 @@
     "headline": "Ideas into useful things."
   },
   {
-    "route": "/projects/jansons-direct-linens/",
-    "outputUrl": "/social/projects--jansons-direct-linens.png",
-    "headline": "Jansons Direct Linens"
-  },
-  {
-    "route": "/projects/pe-pro/",
-    "outputUrl": "/social/projects--pe-pro.png",
-    "headline": "PE Pro"
-  },
-  {
     "route": "/projects/pitcrew/",
     "outputUrl": "/social/projects--pitcrew.png",
     "headline": "Pitcrew"
-  },
-  {
-    "route": "/projects/testing-services-uk/",
-    "outputUrl": "/social/projects--testing-services-uk.png",
-    "headline": "Testing Services UK"
   },
   {
     "route": "/services/bespoke-cms-crm-development/",

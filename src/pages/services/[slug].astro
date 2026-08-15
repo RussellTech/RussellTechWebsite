@@ -3,6 +3,7 @@ import { services } from '../../data/services';
 import Layout from '../../components/Layout.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
 import { getCollection } from 'astro:content';
+import { isActiveProject } from '../../data/projects';
 
 export function getStaticPaths() {
   return services.map(service => ({ params: { slug: service.slug }, props: { service } }));
@@ -12,6 +13,7 @@ const { service } = Astro.props;
 const projects = await getCollection('projects');
 const relatedProjects = service.relatedProjects
   .map(slug => projects.find(project => project.id.replace(/\.md$/, '') === slug))
+  .filter(project => project && isActiveProject(project.id.replace(/\.md$/, '')))
   .filter(Boolean);
 ---
 <Layout title={`${service.title} in Leeds | Russell Tech`} description={service.description} type="article" schema={{ '@type': 'Service', name: service.title, description: service.description, provider: { '@type': 'Organization', name: 'Russell Tech', url: 'https://russell-tech.co.uk/' }, areaServed: ['Leeds', 'Yorkshire', 'United Kingdom'], url: `https://russell-tech.co.uk/services/${service.slug}/` }}>
