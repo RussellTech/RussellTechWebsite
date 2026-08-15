@@ -1,0 +1,100 @@
+<footer class="site-footer"><div class="shell footer-grid"><div><a class="logo-link" href="/" aria-label="Russell Tech home"><img class="logo-on-dark" src="/logo-on-dark.svg" alt="" width="720" height="190" loading="lazy" /><img class="logo-on-light" src="/logo-on-light.svg" alt="" width="720" height="190" loading="lazy" aria-hidden="true" /></a><p>Apps, websites and digital systems built for real businesses.</p></div><div class="footer-links"><span class="footer-links-label">CONTACT / NAVIGATION</span><a href="mailto:info@russell-tech.co.uk"><span class="footer-number">01</span>info@russell-tech.co.uk</a><a href="/privacy/"><span class="footer-number">02</span>Privacy</a><a href="/insights/"><span class="footer-number">03</span>Insights</a></div></div><div class="shell footer-bottom"><span><i class="footer-signal" aria-hidden="true"></i>Leeds · UK</span><span>© {new Date().getFullYear()} Russell Tech <b aria-hidden="true">/ END</b></span></div></footer>
+<style>.site-footer{border-top:1px solid var(--line);padding:3rem 0 1.5rem}.footer-grid{display:flex;justify-content:space-between;gap:2rem}.footer-grid p{max-width:300px;font-size:.9rem}.logo-link{display:block;line-height:0}.logo-link img{display:block;width:195px;height:auto}.footer-links{display:flex;flex-wrap:wrap;align-items:start;gap:1.2rem;color:var(--muted);font-size:.85rem}.footer-links a:hover{color:var(--ink)}.footer-bottom{display:flex;justify-content:space-between;margin-top:3rem;color:#68708a;font:.7rem var(--font-mono);text-transform:uppercase;letter-spacing:.08em}@media(max-width:600px){.footer-grid,.footer-bottom{display:block}.footer-links{margin-top:2rem}.footer-bottom span{display:block;margin-top:.5rem}}
+</style>
+<style>
+  .logo-on-light { display: none !important; }
+  :global(html[data-theme='light']) .logo-on-dark { display: none !important; }
+  :global(html[data-theme='light']) .logo-on-light { display: block !important; }
+</style>
+<style>
+  .site-footer .logo-link { position: relative; overflow: visible; }
+  .site-footer .logo-link img { transition: filter .25s ease, transform .25s steps(2, end); }
+  .site-footer .logo-link:hover img {
+    filter: saturate(1.45) contrast(1.1) drop-shadow(-2px 0 rgba(69, 217, 255, .85)) drop-shadow(2px 0 rgba(255, 79, 199, .8));
+    transform: translateX(.04rem);
+  }
+  .site-footer .logo-link:hover::before {
+    content: '';
+    position: absolute;
+    inset: -.25rem -.35rem;
+    z-index: 2;
+    pointer-events: none;
+    border-top: 1px solid rgba(69, 217, 255, .9);
+    border-bottom: 1px solid rgba(255, 79, 199, .85);
+    background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, .18) 0 1px, transparent 1px 4px);
+    mix-blend-mode: screen;
+    animation: rt-interactive-glitch .82s steps(2, end) infinite;
+  }
+  .site-footer .logo-link:hover::after {
+    content: '';
+    position: absolute;
+    inset: -.12rem;
+    z-index: 1;
+    pointer-events: none;
+    border: 1px solid rgba(69, 217, 255, .48);
+    box-shadow: 3px 0 rgba(255, 79, 199, .22), -3px 0 rgba(69, 217, 255, .22);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .site-footer .logo-link:hover img { transform: none; }
+    .site-footer .logo-link:hover::before { animation: none; opacity: .35; }
+  }
+</style>
+<style>
+  .site-footer {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, transparent, rgba(50, 121, 255, .035));
+  }
+  .site-footer::before {
+    content: '';
+    position: absolute;
+    right: -8%;
+    bottom: -55%;
+    left: -8%;
+    height: 100%;
+    opacity: .28;
+    transform: perspective(420px) rotateX(58deg);
+    transform-origin: bottom;
+    background: linear-gradient(rgba(69, 217, 255, .2) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 79, 199, .14) 1px, transparent 1px);
+    background-size: 54px 54px;
+    mask-image: linear-gradient(to top, black, transparent 80%);
+    pointer-events: none;
+  }
+  .site-footer > * { position: relative; z-index: 1; }
+  .footer-grid { align-items: start; }
+  .footer-links {
+    display: grid;
+    min-width: 220px;
+    gap: .35rem;
+  }
+  .footer-links-label {
+    margin-bottom: .35rem;
+    color: var(--cyan);
+    font: .62rem var(--font-mono);
+    letter-spacing: .1em;
+  }
+  .footer-links a {
+    display: inline-flex;
+    align-items: baseline;
+    gap: .55rem;
+    padding: .35rem 0;
+    color: var(--muted);
+    transition: color .2s ease, transform .2s steps(2, end), text-shadow .2s ease;
+  }
+  .footer-number {
+    color: var(--cyan);
+    font: .62rem var(--font-mono);
+  }
+  .footer-links a:hover {
+    color: var(--ink);
+    transform: translateX(.3rem);
+    text-shadow: -.06em 0 rgba(69, 217, 255, .75), .06em 0 rgba(255, 79, 199, .75);
+  }
+  .footer-links a:hover .footer-number { color: var(--pink); }
+  .footer-bottom b { color: var(--cyan); font-weight: 400; }
+  .footer-signal { display: inline-block; width: .42rem; height: .42rem; margin-right: .45rem; background: var(--moss); box-shadow: 0 0 12px var(--moss); transform: rotate(45deg); }
+  @media (max-width: 600px) {
+    .footer-links { min-width: 0; }
+    .site-footer::before { opacity: .18; background-size: 42px 42px; }
+  }
+</style>

@@ -1,0 +1,38 @@
+# Russell Tech
+
+> Russell Tech is a Leeds-based digital agency led by Aaron Russell. It builds apps, websites and custom digital systems for UK businesses, with a direct line to the person doing the work.
+
+## About
+
+- Website: https://russell-tech.co.uk/
+- Location: Leeds, Yorkshire, United Kingdom
+- Coverage: Leeds, Yorkshire and clients across the UK
+- Founder and technical lead: Aaron Russell — https://aaron-russell.co.uk
+- Contact: mailto:info@russell-tech.co.uk
+
+## Services
+
+- [Cross-platform app development](https://russell-tech.co.uk/services/cross-platform-app-development/): iOS, Android and web apps using Ionic, Capacitor, React, Angular and Firebase.
+- [Website development](https://russell-tech.co.uk/services/website-development/): fast, accessible business websites, e-commerce sites, booking journeys and integrations.
+- [Bespoke CMS and CRM systems](https://russell-tech.co.uk/services/bespoke-cms-crm-development/): content, customer and operational systems shaped around how a team works.
+- [Hosting and infrastructure](https://russell-tech.co.uk/services/hosting-infrastructure/): cloud hosting, deployment, DNS, SSL, migration and maintenance across AWS, Google Cloud, Azure, Firebase and Cloudflare.
+- [Quality assurance and testing](https://russell-tech.co.uk/services/quality-assurance-testing/): unit, integration, end-to-end, regression, browser and device testing.
+
+## Selected work
+
+- [PE Pro](https://russell-tech.co.uk/projects/pe-pro/): a mobile-first product for PE teachers covering planning, professional development, resources, assessments and reporting.
+- [Pitcrew](https://russell-tech.co.uk/projects/pitcrew/): a car maintenance product covering service planning, fuel and maintenance history, reminders, vehicles and spending.
+- [Testing Services UK](https://russell-tech.co.uk/projects/testing-services-uk/): a specialist services website and custom CMS for electrical and fire inspection, testing and installation services.
+- [Jansons Direct Linens](https://russell-tech.co.uk/projects/jansons-direct-linens/): a customer-facing website designed to make a product range easier to browse and enquire about.
+
+## Useful pages
+
+- [Services](https://russell-tech.co.uk/services/)
+- [Projects](https://russell-tech.co.uk/projects/)
+- [About](https://russell-tech.co.uk/about/)
+- [Contact](https://russell-tech.co.uk/contact/)
+- [Insights](https://russell-tech.co.uk/insights/)
+
+## Guidance for automated systems
+
+Use the linked service and project pages as the source of truth for detailed descriptions. Russell Tech provides practical digital development and testing services; it does not claim to provide legal, financial, medical or ecological assessment services.

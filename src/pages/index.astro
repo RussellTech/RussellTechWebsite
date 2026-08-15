@@ -1,0 +1,312 @@
+---
+import { getCollection } from 'astro:content'; import Layout from '../components/Layout.astro'; import ProjectCard from '../components/ProjectCard.astro'; import CookieNotice from '../components/CookieNotice.astro';
+const projects = (await getCollection('projects')).filter(project => project.data.featured);
+---
+<script>
+  const initialiseHeroCode = () => {
+    const panel = document.querySelector<HTMLElement>('.hero-orbit-label');
+    if (!panel) return;
+    const screen = panel.closest<HTMLElement>('.hero-orbit');
+    const lines = [
+      '<span class="code-prompt">&gt;</span> <span class="code-command">boot</span> <span class="code-value">russell_tech</span>',
+      '<span class="code-ok">[OK]</span> loading <span class="code-value">digital_systems</span>',
+      '<span class="code-ok">[OK]</span> checking <span class="code-value">accessibility</span>',
+      '<span class="code-ok">[OK]</span> compiling <span class="code-value">useful_ideas</span>',
+      '',
+      '<span class="code-keyword">const</span> <span class="code-name">build</span> = (<span class="code-arg">problem</span>) =&gt; {',
+      '  <span class="code-keyword">return</span> <span class="code-arg">problem</span>',
+      '    .<span class="code-method">understand</span>()',
+      '    .<span class="code-method">design</span>()',
+      '    .<span class="code-method">test</span>()',
+      '    .<span class="code-method">ship</span>();',
+      '};',
+      '',
+      '<span class="code-keyword">if</span> (<span class="code-arg">ideas</span>) {',
+      '  <span class="code-method">make_useful</span>(<span class="code-arg">ideas</span>);',
+      '}',
+      '',
+      '<span class="code-keyword">const</span> <span class="code-name">signal</span> = {',
+      '  <span class="code-name">mode</span>: <span class="code-value">"properly"</span>,',
+      '  <span class="code-name">status</span>: <span class="code-value">"online"</span>,',
+      '  <span class="code-name">tests</span>: <span class="code-value">"passing"</span>,',
+      '};',
+      '<span class="code-keyword">export</span> <span class="code-keyword">default</span> <span class="code-name">build</span>;',
+      '',
+      '<span class="code-comment">// shipping useful things since 2006</span>',
+      '<span class="code-keyword">function</span> <span class="code-name">launch</span>(<span class="code-arg">project</span>) {',
+      '  <span class="code-keyword">const</span> <span class="code-name">plan</span> = <span class="code-method">clarify</span>(<span class="code-arg">project</span>);',
+      '  <span class="code-keyword">const</span> <span class="code-name">design</span> = <span class="code-method">make_clear</span>(<span class="code-name">plan</span>);',
+      '  <span class="code-keyword">const</span> <span class="code-name">build</span> = <span class="code-method">make_real</span>(<span class="code-name">design</span>);',
+      '  <span class="code-keyword">return</span> <span class="code-method">ship</span>(<span class="code-name">build</span>);',
+      '}',
+      '',
+      '<span class="code-name">pipeline</span>.on(<span class="code-value">"success"</span>, () =&gt; {',
+      '  <span class="code-method">log</span>(<span class="code-value">"ready for real people"</span>);',
+      '  <span class="code-method">deploy</span>({ <span class="code-name">region</span>: <span class="code-value">"uk"</span> });',
+      '});',
+      '',
+      '<span class="code-status">[PASS]</span> accessibility checks',
+      '<span class="code-status">[PASS]</span> responsive layout',
+      '<span class="code-status">[PASS]</span> production build',
+      '<span class="code-status">[READY]</span> waiting for signal...',
+      '',
+      '<span class="code-prompt">&gt;</span> <span class="code-status">STATUS: ONLINE</span>',
+    ];
+    const output = document.createElement('div');
+    output.className = 'hero-code';
+    output.setAttribute('aria-hidden', 'true');
+    lines.forEach((line) => {
+      const row = document.createElement('div');
+      row.className = 'hero-code-line';
+      row.innerHTML = line || '&nbsp;';
+      row.style.setProperty('--chars', String(Math.max(row.textContent?.length ?? 1, 1)));
+      output.appendChild(row);
+    });
+    panel.replaceChildren(output);
+    if (screen && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const scheduleCrtBurst = () => {
+        window.setTimeout(() => {
+          screen.classList.remove('crt-burst');
+          void screen.offsetWidth;
+          screen.classList.add('crt-burst');
+          window.setTimeout(() => screen.classList.remove('crt-burst'), 260);
+          scheduleCrtBurst();
+        }, 4800 + Math.random() * 5200);
+      };
+      scheduleCrtBurst();
+    }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      output.querySelectorAll('.hero-code-line').forEach((row) => row.classList.add('is-typed'));
+      return;
+    }
+    let lineIndex = 0;
+    const typeNext = () => {
+      const row = output.children[lineIndex] as HTMLElement | undefined;
+      if (row) {
+        row.classList.add('is-typed');
+        row.classList.remove('code-glitch');
+        void row.offsetWidth;
+        row.classList.add('code-glitch');
+        if (lineIndex >= 10) {
+          output.scrollTop = Math.max(0, row.offsetTop - output.clientHeight + row.offsetHeight * 2);
+        }
+      }
+      lineIndex += 1;
+      if (lineIndex < lines.length) {
+        const nextRow = output.children[lineIndex - 1] as HTMLElement | undefined;
+        const typeTime = Math.max((nextRow?.textContent?.length ?? 1) * 28, 115);
+        window.setTimeout(typeNext, typeTime + 90);
+      } else {
+        window.setTimeout(() => {
+          output.querySelectorAll('.hero-code-line').forEach((item) => item.classList.remove('is-typed'));
+          output.scrollTop = 0;
+          lineIndex = 0;
+          typeNext();
+        }, 2300);
+      }
+    };
+    typeNext();
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initialiseHeroCode, { once: true });
+  } else {
+    initialiseHeroCode();
+  }
+</script>
+<style>
+  .hero-kicker::before { content: 'SYS / 01'; color: var(--pink); }
+  .hero-kicker { gap: .8rem; }
+  .hero-kicker::after { content: 'SIGNAL: ONLINE'; margin-left: .35rem; color: var(--cyan); }
+  .hero-orbit { border: 1px solid rgba(69, 217, 255, .45); border-radius: 1rem; transform: rotate(-5deg); background: linear-gradient(rgba(69, 217, 255, .06) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 79, 199, .06) 1px, transparent 1px), radial-gradient(circle at 32% 28%, rgba(69, 217, 255, .28), transparent 29%), radial-gradient(circle at 72% 66%, rgba(169, 74, 244, .26), transparent 37%), linear-gradient(135deg, rgba(7, 16, 31, .9), rgba(38, 18, 70, .76)); background-size: 46px 46px, 46px 46px, auto, auto, auto; box-shadow: 7px 7px 0 rgba(255, 79, 199, .12), 0 0 50px rgba(69, 217, 255, .12); }
+  .hero-orbit::before { inset: 12%; border-radius: 0; transform: rotate(45deg); border-color: rgba(69, 217, 255, .5); }
+  .hero-orbit::after { inset: 25%; border-radius: 50%; border-color: rgba(255, 79, 199, .5); transform: rotate(0); }
+  .hero-orbit-label { display: block !important; top: 22%; left: 14%; width: 72%; color: var(--cyan); transform: none; }
+  .hero-orbit-label::before, .hero-orbit-label::after, .hero-orbit-label strong { display: none; }
+  .hero-code { margin: 0; color: var(--cyan); font: .62rem/1.75 var(--font-mono); letter-spacing: .04em; white-space: pre-wrap; text-shadow: 2px 0 rgba(255, 79, 199, .35); }
+  .hero-code::after { content: '█'; color: var(--pink); animation: rt-code-cursor .85s steps(2, end) infinite; }
+  .hero-orbit > span { border-radius: 0; transform: rotate(45deg); }
+  .hero::after { opacity: .5; background-size: 46px 46px; }
+  @keyframes rt-code-scroll { from { transform: translateY(0); } to { transform: translateY(-2.2rem); } }
+  @keyframes rt-code-cursor { 0%, 48% { opacity: 1; } 49%, 100% { opacity: 0; } }
+  .hero-copy::before {
+    content: '> boot russell_tech\\A [ok] loading digital systems\\A [ok] checking accessibility\\A [ok] compiling useful ideas\\A\\A const build = (problem) => {\\A   return problem\\A     .understand()\\A     .test()\\A     .ship();\\A };\\A\\A STATUS: ONLINE';
+    position: absolute;
+    top: 8.5rem;
+    left: 4rem;
+    z-index: 0;
+    width: 27rem;
+    color: var(--cyan);
+    font: .68rem/1.7 var(--font-mono);
+    letter-spacing: .04em;
+    white-space: pre;
+    opacity: .16;
+    text-shadow: 2px 0 rgba(255, 79, 199, .35);
+    pointer-events: none;
+    animation: rt-code-scroll 8s linear infinite alternate;
+  }
+  .hero-copy::after {
+    content: '_';
+    position: absolute;
+    top: 25.2rem;
+    left: 4rem;
+    z-index: 0;
+    color: var(--pink);
+    font: .8rem var(--font-mono);
+    opacity: .6;
+    pointer-events: none;
+    animation: rt-code-cursor .85s steps(2, end) infinite;
+  }
+  .hero-copy > * { position: relative; z-index: 1; }
+  @media (max-width: 800px) {
+    .hero-kicker::before, .hero-kicker::after { display: none !important; }
+    .hero-copy::before { top: 10rem; left: 1rem; opacity: .09; transform: scale(.9); transform-origin: top left; }
+    .hero-copy::after { top: 26rem; left: 1rem; opacity: .35; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-copy::before, .hero-copy::after, .hero-code::after { animation: none; }
+  }
+  .hero-orbit {
+    border-radius: .7rem !important;
+    transform: none !important;
+    background: linear-gradient(145deg, #06101f, #101b3a 58%, #28133f) !important;
+    box-shadow: 8px 8px 0 rgba(255, 79, 199, .14), 0 0 50px rgba(69, 217, 255, .16) !important;
+    animation: none !important;
+  }
+  .hero-orbit::before {
+    inset: .7rem !important;
+    z-index: 1;
+    border: 1px solid rgba(69, 217, 255, .45);
+    border-radius: .3rem !important;
+    transform: none !important;
+    box-shadow: inset 0 0 0 4px rgba(3, 9, 20, .35), 0 0 22px rgba(69, 217, 255, .12) !important;
+  }
+  .hero-orbit::after {
+    inset: .7rem !important;
+    z-index: 3;
+    border: 0 !important;
+    border-radius: .3rem !important;
+    transform: none !important;
+    background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, .06) 0 1px, transparent 1px 4px) !important;
+    opacity: .18 !important;
+    pointer-events: none;
+    animation: none !important;
+  }
+  .hero-orbit-label {
+    top: 12% !important;
+    left: 11% !important;
+    z-index: 2;
+    width: 78% !important;
+    height: 76% !important;
+    padding: 2.2rem 1rem 1rem;
+    overflow: hidden !important;
+    border-radius: .2rem;
+    background: rgba(3, 9, 20, .38) !important;
+  }
+  .hero-orbit-label::before {
+    content: 'RT TERMINAL // LIVE BUILD';
+    position: absolute;
+    top: .65rem;
+    left: 1rem;
+    display: block;
+    color: var(--pink);
+    font: .55rem var(--font-mono);
+    letter-spacing: .1em;
+  }
+  .hero-orbit-label::after {
+    content: 'REC ● 1985';
+    position: absolute;
+    top: .65rem;
+    right: 1rem;
+    display: block;
+    color: var(--cyan);
+    font: .55rem var(--font-mono);
+    letter-spacing: .08em;
+  }
+  .hero-code { height: 100%; overflow-y: auto; overflow-x: hidden; scrollbar-width: none; color: #9defff; font-size: .58rem; line-height: 1.65; text-shadow: none; }
+  .hero-code::-webkit-scrollbar { display: none; }
+  .hero-code-line { min-height: 1.65em; opacity: 0; clip-path: inset(0 100% 0 0); transform: translateX(-.25rem); }
+  .hero-code-line.is-typed { opacity: 1; clip-path: inset(0 0 0 0); transform: translateX(0); animation: rt-code-line-type calc(var(--chars) * .028s) steps(var(--chars), end) both; }
+  .hero-code .code-prompt, .hero-code .code-command { color: var(--pink) !important; }
+  .hero-code .code-ok, .hero-code .code-status { color: var(--mint) !important; }
+  .hero-code .code-keyword { color: #ff8bdc !important; }
+  .hero-code .code-name, .hero-code .code-method { color: #7edfff !important; }
+  .hero-code .code-value, .hero-code .code-arg { color: var(--gold) !important; }
+  .code-glitch { animation: rt-terminal-glitch .24s steps(2, end); }
+  @keyframes rt-code-line-in { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+  @keyframes rt-code-line-type { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+  @keyframes rt-terminal-glitch { 0%, 100% { filter: none; transform: translateX(0); } 25% { filter: drop-shadow(-2px 0 rgba(69, 217, 255, .8)) drop-shadow(2px 0 rgba(255, 79, 199, .8)); transform: translateX(-.12rem); } 55% { filter: none; transform: translateX(.1rem); } }
+  @keyframes rt-screen-flicker { 0%, 92%, 100% { opacity: .5; } 94% { opacity: .72; } 96% { opacity: .38; } }
+  @media (prefers-reduced-motion: reduce) { .hero-orbit::after, .hero-code-line.is-typed, .code-glitch { animation: none; } }
+</style>
+<style is:global>
+  html body main .hero-orbit { transform: none !important; animation: none !important; border: 1px solid rgba(129, 160, 187, .3) !important; border-radius: 1.1rem / .9rem !important; background: linear-gradient(145deg, #182231, #050b16 42%, #111a2d 78%, #050810) !important; overflow: hidden !important; box-shadow: inset 0 1px 0 rgba(255, 255, 255, .12), inset 0 -1.5rem 2rem rgba(0, 0, 0, .3), 8px 10px 0 rgba(255, 79, 199, .12), 0 0 50px rgba(69, 217, 255, .16) !important; }
+  html body main .hero-orbit::before { inset: .7rem !important; border: 1px solid rgba(69, 217, 255, .45) !important; border-radius: .9rem / .7rem !important; transform: none !important; box-shadow: inset 0 0 0 4px rgba(3, 9, 20, .42), inset 0 0 2rem rgba(69, 217, 255, .08), 0 0 22px rgba(69, 217, 255, .16) !important; }
+  html body main .hero-orbit::after { inset: .7rem !important; border: 0 !important; border-radius: .3rem !important; transform: none !important; background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, .06) 0 1px, transparent 1px 4px) !important; animation: none !important; }
+  html body main .hero-orbit-label { display: block !important; transform: none !important; }
+  html body main .hero-orbit-label { border: 1px solid rgba(119, 211, 238, .3); border-radius: 10% / 6% !important; background: radial-gradient(circle at 96% 94%, #77ffc0 0 4px, rgba(119, 255, 192, .7) 5px, rgba(119, 255, 192, .28) 9px, transparent 20px), linear-gradient(125deg, rgba(255, 255, 255, .15), transparent 22% 70%, rgba(69, 217, 255, .1)), radial-gradient(ellipse at center, rgba(17, 55, 82, .62), rgba(3, 9, 20, .84) 78%) !important; box-shadow: inset 0 0 3.5rem rgba(69, 217, 255, .2), inset 0 0 7rem rgba(0, 0, 0, .68), 0 0 2.5rem rgba(69, 217, 255, .25), 0 0 5rem rgba(50, 121, 255, .16) !important; backdrop-filter: blur(5px) saturate(1.25); -webkit-backdrop-filter: blur(5px) saturate(1.25); text-shadow: 0 0 .55rem currentColor !important; animation: rt-crt-breathe 6s ease-in-out infinite; }
+  html body main .hero-orbit-label::before { content: 'CH 03 // SYNC OK' !important; }
+  html body main .hero-orbit-label::after { content: 'REC ● 1985 // POWER\\A\\A POWER ● ON' !important; white-space: pre; }
+  html body main .hero-orbit::after { background: radial-gradient(circle at calc(100% - 1.45rem) calc(100% - 1.25rem), #77ffc0 0 2px, rgba(119, 255, 192, .52) 3px, rgba(119, 255, 192, .16) 7px, transparent 12px), repeating-linear-gradient(to bottom, rgba(178, 238, 255, .12) 0 1px, transparent 1px 4px), linear-gradient(90deg, rgba(255, 79, 199, .06), transparent 18% 82%, rgba(69, 217, 255, .06)) !important; opacity: .3 !important; mix-blend-mode: screen; }
+  html body main .hero-orbit::after { content: 'POWER / ON'; color: rgba(119, 255, 192, .72); font: .42rem var(--font-mono); letter-spacing: .08em; text-align: right; padding: 0 1.9rem 1rem 0; display: flex; align-items: flex-end; justify-content: flex-end; }
+  html body main .hero-code { position: relative; text-shadow: 0 0 .35rem currentColor, .08em 0 rgba(255, 79, 199, .18), -.08em 0 rgba(69, 217, 255, .18) !important; }
+  html body main .hero-code::before { content: ''; position: absolute; inset: 0; z-index: 4; height: 2px; background: linear-gradient(90deg, transparent, rgba(172, 241, 255, .38), transparent); box-shadow: 0 0 12px rgba(69, 217, 255, .25); pointer-events: none; animation: rt-crt-beam 9s linear infinite; }
+  html body main .hero-code::after { text-shadow: 0 0 .5rem #ff4fc7 !important; }
+  html body main .hero-orbit::before { box-shadow: inset 0 0 0 4px rgba(3, 9, 20, .42), inset 0 0 2rem rgba(69, 217, 255, .12), 0 0 28px rgba(69, 217, 255, .28), 0 0 55px rgba(50, 121, 255, .16) !important; }
+  html body main .hero-orbit.crt-burst { animation: rt-crt-glitch .9s steps(2, end) both !important; }
+  @keyframes rt-crt-breathe { 0%, 100% { filter: brightness(.96) saturate(1.05); } 50% { filter: brightness(1.02) saturate(1.12); } }
+  @keyframes rt-crt-beam { from { transform: translateY(0); opacity: 0; } 8% { opacity: .55; } 48% { opacity: .22; } 60%, to { transform: translateY(38rem); opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { html body main .hero-orbit.crt-burst, html body main .hero-orbit-label, html body main .hero-code::before { animation: none !important; } }
+  .hero-orbit span, .hero-orbit-glow { display: none !important; }
+  html body main .hero-orbit > span:last-child { display: block !important; position: absolute !important; z-index: 5 !important; top: auto !important; left: auto !important; right: 2.55rem !important; bottom: 2.42rem !important; width: 9px !important; height: 9px !important; border-radius: 50% !important; background: #b6ffd9 !important; box-shadow: 0 0 0 2px rgba(3, 9, 20, .9), 0 0 8px 3px rgba(119, 255, 192, 1), 0 0 18px 6px rgba(119, 255, 192, .78), 0 0 34px 12px rgba(69, 217, 255, .36) !important; transform: none !important; }
+  html body main .hero-orbit > span:last-child::after { content: 'POWER'; position: absolute; right: 1rem; top: 1px; color: rgba(119, 255, 192, .86); font: .42rem var(--font-mono); letter-spacing: .1em; white-space: nowrap; }
+  html body main .hero-orbit-label span { position: static !important; display: inline !important; width: auto !important; height: auto !important; border-radius: 0 !important; background: transparent !important; box-shadow: none !important; transform: none !important; }
+  html body main .hero-code { display: block !important; width: 100% !important; height: 100% !important; max-height: 100% !important; overflow-y: auto !important; overflow-x: hidden !important; scrollbar-width: none; color: #9defff; font: .58rem/1.65 var(--font-mono); }
+  html body main .hero-code::-webkit-scrollbar { display: none; }
+  .hero-code .code-prompt, .hero-code .code-command { color: #ff4fc7 !important; }
+  .hero-code .code-ok, .hero-code .code-status { color: #77ffc0 !important; }
+  .hero-code .code-keyword { color: #ff8bdc !important; }
+  .hero-code .code-name, .hero-code .code-method { color: #7edfff !important; }
+  .hero-code .code-value, .hero-code .code-arg { color: #ffd166 !important; }
+  .hero-code .code-comment { color: #9b8cff !important; }
+  .hero-code-line.is-typed { color: #b8c6dc !important; }
+  html body main .hero-code-line { min-height: 1.65em; opacity: 0; clip-path: inset(0 100% 0 0); transform: translateX(-.25rem); }
+  html body main .hero-code-line.is-typed { opacity: 1; clip-path: inset(0 0 0 0); transform: translateX(0); animation: rt-code-line-type 1.15s steps(32, end) both; }
+  @keyframes rt-code-line-type { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+  html body main .hero-orbit-label:not(:has(.hero-code))::before { content: 'CH 03 // SYNC OK\\A\\A > boot russell_tech\\A [OK] loading digital_systems\\A\\A const build = make_useful(ideas);\\A [PASS] responsive layout\\A [READY] STATUS: ONLINE' !important; top: 1rem; left: 1rem; right: 1rem; display: block !important; white-space: pre; color: #7edfff !important; font: .58rem/1.75 var(--font-mono) !important; }
+  html body main .hero-orbit-label:not(:has(.hero-code))::after { content: 'REC ● 1985' !important; top: 1rem; right: 1rem; display: block !important; color: #ff4fc7 !important; font: .52rem var(--font-mono) !important; }
+  @media (prefers-reduced-motion: reduce) { html body main .hero-code-line { opacity: 1; clip-path: inset(0); transform: none; animation: none !important; } }
+  .hero-copy::before, .hero-copy::after { animation: none !important; }
+  @media (min-width: 1001px) {
+    html body main .hero { min-height: 760px; padding-top: 6.5rem; grid-template-columns: minmax(0, 1fr) minmax(480px, .78fr); column-gap: 3.5rem; row-gap: 1rem; align-items: start; }
+    html body main .hero-kicker { grid-column: 1; grid-row: 1; margin-top: .5rem; }
+    html body main .hero-copy { grid-column: 1; grid-row: 2; max-width: 42rem !important; padding-top: 1rem; }
+    html body main .hero h1 { margin: 1.1rem 0 1.5rem; line-height: .94; }
+    html body main .hero .lead { max-width: 39rem; margin: 0; line-height: 1.5; }
+    html body main .hero-actions { margin-top: 1.25rem; }
+    html body main .hero-orbit { grid-column: 2; grid-row: 1 / span 2; width: min(100%, 560px); margin-top: 0; }
+    html body main .trust-strip { margin-top: 2rem; }
+  }
+  @media (min-width: 801px) and (max-width: 1000px) {
+    html body main .hero { min-height: 900px; }
+    html body main .hero-copy { max-width: 38rem !important; }
+  }
+  @media (max-width: 800px) {
+    html body main .hero { min-height: 0; padding-top: 4rem; padding-bottom: 3rem; }
+    html body main .hero-copy { max-width: 100% !important; padding-top: 0; }
+    html body main .hero-orbit { position: relative !important; top: auto !important; right: auto !important; width: 100% !important; height: 390px !important; margin-top: 3rem; opacity: 1 !important; }
+    html body main .hero-orbit-label { display: block !important; top: 9% !important; left: 6% !important; width: 88% !important; height: 82% !important; padding: 2.1rem .75rem .75rem; font-size: .55rem; }
+    html body main .hero-code { font-size: .52rem; line-height: 1.6; }
+    html body main .hero-orbit-label::before { left: .75rem; font-size: .48rem; }
+    html body main .hero-orbit-label::after { right: .75rem; font-size: .48rem; }
+    html body main .hero-orbit-label { display: block !important; visibility: visible !important; opacity: 1 !important; z-index: 4 !important; color: #b8c6dc !important; }
+    html body main .hero-code { display: block !important; visibility: visible !important; opacity: 1 !important; }
+    html body main .hero-code-line.is-typed { display: block !important; visibility: visible !important; }
+    html body main .hero-orbit-label::before { content: 'CH 03 // SYNC OK\\A\\A > boot russell_tech\\A [OK] loading digital_systems\\A\\A const build = make_useful(ideas);\\A [PASS] responsive layout\\A [READY] STATUS: ONLINE' !important; top: 1rem; left: .75rem; right: .75rem; white-space: pre; display: block !important; color: #7edfff !important; font: .55rem/1.75 var(--font-mono) !important; letter-spacing: .04em; }
+    html body main .hero-orbit-label::after { content: 'REC ● 1985' !important; top: 1rem; right: .75rem; display: block !important; color: #ff4fc7 !important; font: .48rem var(--font-mono) !important; }
+  }
+</style>
+<Layout title="Russell Tech | Leeds app and website development" description="Russell Tech is a Leeds-based digital agency building apps, websites, custom CMS platforms and reliable infrastructure for UK businesses."><section class="hero shell"><div class="hero-kicker"><span class="signal"></span> Leeds-based · Yorkshire roots · UK-wide</div><div class="hero-copy"><h1>Digital work for businesses that want things done <span class="gradient-text">properly.</span></h1><p class="lead">Russell Tech builds apps, websites and custom digital systems for businesses that have outgrown off-the-shelf tools. Clear advice, thoughtful design and properly built technology — without the faff or unnecessary agency layers.</p><div class="hero-actions"><a class="button primary" href="/contact/">Start a conversation <span>↗</span></a><a class="button" href="/projects/">See our work <span>↓</span></a></div></div><div class="hero-orbit glass" aria-hidden="true"><div class="hero-orbit-glow"></div><div class="hero-orbit-label">Small studio<br /><strong>solid work</strong></div><span></span><span></span><span></span></div></section><section class="trust-strip" aria-label="Why businesses choose Russell Tech"><div class="shell trust-grid"><div><strong>20 years</strong><span>of digital experience</span></div><div><strong>10+ sectors</strong><span>across varied projects</span></div><div><strong>One direct line</strong><span>to the person doing the work</span></div><div><strong>Leeds-based</strong><span>working with clients UK-wide</span></div></div></section><section class="section shell intro"><div><span class="eyebrow">What we do</span><h2>Good technology, made <span class="gradient-text">useful.</span></h2></div><div class="intro-copy"><p>From the first idea to the infrastructure underneath it, Russell Tech helps businesses make digital products clearer, quicker and easier for people to use.</p><a class="muted-link" href="/services/">Have a look at our services →</a></div></section><section class="section shell"><div class="section-heading"><div><span class="eyebrow">A bit of our work</span><h2>Here’s what we’ve been up to.</h2></div><a class="button" href="/projects/">See all projects ↗</a></div><div class="grid two">{projects.map(project => <ProjectCard {...project.data} slug={project.id.replace(/\.md$/, '')} />)}</div></section><section class="section shell founder"><div class="founder-card card"><div><span class="eyebrow">The studio</span><h2>A proper agency.<br /><span class="gradient-text">Without the faff.</span></h2></div><div><p>Russell Tech is led by Aaron Russell, a developer and digital builder based in Leeds. The studio stays small on purpose: you get honest conversations, sensible advice and a direct line to the person doing the work.</p><a class="muted-link" href="/about/">Meet Aaron →</a></div></div></section><section class="section cta-band"><div class="shell"><span class="eyebrow">Got a project in mind?</span><h2>Let’s make something<br /><span class="gradient-text">properly useful.</span></h2><a class="button primary" href="/contact/">Get in touch ↗</a></div></section><CookieNotice /></Layout>
+<style>.hero{position:relative;min-height:720px;padding-top:8rem;overflow:hidden}.hero::after{content:'';position:absolute;left:-10%;right:-10%;bottom:-23%;height:52%;opacity:.34;transform:perspective(360px) rotateX(58deg);transform-origin:bottom;background:linear-gradient(rgba(69,217,255,.24) 1px,transparent 1px),linear-gradient(90deg,rgba(255,79,199,.16) 1px,transparent 1px);background-size:54px 54px;mask-image:linear-gradient(to top,black,transparent 82%);pointer-events:none}.hero-copy{position:relative;z-index:1;max-width:760px}.hero h1{margin:1.6rem 0}.hero .lead{max-width:650px}.hero-kicker{display:flex;align-items:center;gap:.6rem;color:var(--muted);font:.72rem var(--font-mono);text-transform:uppercase;letter-spacing:.1em}.signal{width:.5rem;height:.5rem;border-radius:0;background:var(--moss);box-shadow:0 0 18px var(--moss);transform:rotate(45deg)}.hero-actions{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2.5rem}.hero-actions .button.primary:hover{box-shadow:4px 4px 0 rgba(255,79,199,.26),0 14px 34px rgba(50,121,255,.24),0 0 28px rgba(169,74,244,.18)}.hero-orbit{position:absolute;top:6rem;right:-9rem;width:570px;height:570px;border-radius:42% 58% 55% 45%;transform:rotate(-16deg);background:radial-gradient(circle at 32% 28%,rgba(69,217,255,.28),transparent 29%),radial-gradient(circle at 72% 66%,rgba(169,74,244,.26),transparent 37%),radial-gradient(circle at 25% 76%,rgba(119,255,192,.17),transparent 28%),radial-gradient(circle at 80% 22%,rgba(255,123,107,.16),transparent 25%),rgba(7,16,31,.46)}.hero-orbit::before,.hero-orbit::after{content:'';position:absolute;inset:12%;border:1px solid rgba(69,217,255,.42);border-radius:47% 53% 42% 58%;transform:rotate(58deg);box-shadow:inset 0 0 24px rgba(50,121,255,.08),0 0 20px rgba(69,217,255,.08)}.hero-orbit::after{inset:25%;border-color:rgba(255,209,102,.46);transform:rotate(-40deg);box-shadow:inset 0 0 20px rgba(255,79,199,.09),0 0 18px rgba(255,123,107,.08)}.hero-orbit-glow{position:absolute;inset:15%;border-radius:50%;background:radial-gradient(circle at 34% 30%,rgba(69,217,255,.2),transparent 38%),radial-gradient(circle at 66% 62%,rgba(255,79,199,.18),transparent 42%),radial-gradient(circle,rgba(50,121,255,.12),transparent 68%);filter:blur(8px)}.hero-orbit-label{position:absolute;top:45%;left:29%;z-index:1;color:var(--muted);font:.7rem/1.45 var(--font-mono);letter-spacing:.08em;text-transform:uppercase;transform:rotate(16deg)}.hero-orbit-label strong{color:var(--ink);font:700 1.4rem/1.1 var(--font-display);letter-spacing:-.05em;text-transform:none}.hero-orbit span{position:absolute;width:9px;height:9px;border-radius:0;background:var(--cyan);box-shadow:0 0 20px var(--cyan);transform:rotate(45deg)}.hero-orbit span:nth-last-child(1){top:12%;left:38%}.hero-orbit span:nth-last-child(2){right:14%;bottom:30%;background:var(--pink);box-shadow:0 0 20px var(--pink)}.hero-orbit span:nth-last-child(3){bottom:12%;left:28%;background:var(--gold);box-shadow:0 0 20px var(--gold)}.intro{display:grid;grid-template-columns:1.2fr .8fr;gap:5rem;align-items:end}.intro h2{margin:1.5rem 0 0}.intro-copy{max-width:420px}.founder-card{display:grid;grid-template-columns:1fr 1fr;gap:4rem;padding:clamp(1.5rem,5vw,4rem);background:radial-gradient(circle at 82% 0%,rgba(169,74,244,.18),transparent 40%),radial-gradient(circle at 0% 100%,rgba(69,217,255,.1),transparent 35%),var(--panel)}.founder-card h2{margin:1.5rem 0 0}.founder-card p{font-size:1.1rem}.cta-band{border-top:1px solid var(--line);background:radial-gradient(circle at 80% 40%,rgba(169,74,244,.18),transparent 35%),radial-gradient(circle at 20% 100%,rgba(69,217,255,.1),transparent 32%)}.cta-band h2{margin:1.4rem 0 2rem}@media(max-width:800px){.hero{min-height:720px;padding-top:5rem}.hero::after{bottom:-18%;height:42%;background-size:42px 42px}.hero-orbit{opacity:.72;right:-17rem;top:16rem;width:480px;height:480px}.intro,.founder-card{grid-template-columns:1fr;gap:2rem}}
+</style>
+<style>.trust-strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:linear-gradient(100deg,rgba(69,217,255,.045),rgba(50,121,255,.035) 42%,rgba(169,74,244,.05) 72%,rgba(255,79,199,.035))}.trust-grid{display:grid;grid-template-columns:repeat(4,1fr)}.trust-grid>div{display:grid;gap:.35rem;padding:1.6rem 1.25rem;border-right:1px solid var(--line)}.trust-grid>div:first-child{padding-left:0}.trust-grid>div:last-child{padding-right:0;border-right:0}.trust-grid strong{font-size:1.1rem}.trust-grid span{color:var(--muted);font-size:.78rem}@media(max-width:800px){.trust-grid{grid-template-columns:repeat(2,1fr)}.trust-grid>div:nth-child(2){border-right:0}.trust-grid>div:nth-child(3),.trust-grid>div:nth-child(4){border-top:1px solid var(--line)}.trust-grid>div:nth-child(3){padding-left:0}.trust-grid>div:nth-child(4){padding-right:0}}@media(max-width:450px){.trust-grid{grid-template-columns:1fr}.trust-grid>div,.trust-grid>div:nth-child(3),.trust-grid>div:nth-child(4){padding:1rem 0;border-right:0}.trust-grid>div+div{border-top:1px solid var(--line)}}
+</style>

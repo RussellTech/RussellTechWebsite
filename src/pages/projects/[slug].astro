@@ -1,0 +1,19 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../components/Layout.astro';
+
+export async function getStaticPaths() {
+  const projects = await getCollection('projects');
+  return projects.map(project => ({ params: { slug: project.id.replace(/\.md$/, '') }, props: { project } }));
+}
+
+const { project } = Astro.props;
+const { Content } = await render(project);
+const { title, client, category, summary, accent, tags, year } = project.data;
+const slug = project.id.replace(/\.md$/, '');
+---
+<Layout title={`${title} case study | Russell Tech`} description={summary} type="article" schema={{ '@type': 'CreativeWork', '@id': `https://russell-tech.co.uk/projects/${slug}/#project`, name: title, description: summary, url: `https://russell-tech.co.uk/projects/${slug}/`, creator: { '@type': 'Organization', name: 'Russell Tech', url: 'https://russell-tech.co.uk/' }, about: category }}>
+  <article><header class="project-hero shell"><a class="muted-link" href="/projects/">← All projects</a><span class="eyebrow case-study-label">Case study · {category}</span><span class={`project-visual ${accent}`}><span class="project-mark">{title.split(' ').map(word => word[0]).join('')}</span></span><span class="eyebrow">{client}</span><h1>{title}</h1><p class="lead">{summary}</p><div class="tag-row">{tags.map(tag => <span class="tag">{tag}</span>)}</div></header><section class="section shell project-content"><div class="prose"><Content /></div><aside class="project-sidebar"><div class="project-summary"><span class="eyebrow">Project snapshot</span><ul class="pill-list"><li><span>Client</span><strong>{client}</strong></li><li><span>Type</span><strong>{category}</strong></li>{year && <li><span>Year</span><strong>{year}</strong></li>}</ul></div><div class="project-sidebar-cta"><span class="eyebrow">Have a similar challenge?</span><h2>Let’s talk it through.</h2><a class="button primary" href="/contact/">Start a conversation ↗</a></div></aside></section></article>
+</Layout>
+<style>.project-hero{padding:4rem 0 2rem}.case-study-label{display:block;margin-top:5rem}.project-hero>.project-visual{margin:2rem 0 3rem;min-height:420px;align-items:end}.project-hero h1{margin:1.2rem 0}.project-content{display:grid;grid-template-columns:1fr .35fr;gap:7rem;border-top:1px solid var(--line)}.project-sidebar{display:grid;align-content:start;gap:4rem;padding-top:1rem}.project-summary{padding-bottom:2rem;border-bottom:1px solid var(--line)}.project-sidebar-cta{padding:1.5rem;border:1px solid var(--line);border-radius:1.25rem;background:var(--panel)}.project-sidebar-cta h2{margin:1rem 0 1.5rem;font-size:clamp(1.8rem,3vw,2.6rem)}@media(max-width:800px){.project-content{grid-template-columns:1fr;gap:2rem}.project-hero>.project-visual{min-height:280px}.project-sidebar{gap:2rem}}
+</style>

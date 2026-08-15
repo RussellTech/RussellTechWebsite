@@ -1,0 +1,35 @@
+---
+import { createHash } from 'node:crypto';
+
+interface Props { title?: string; description?: string; image?: string; imageAlt?: string; type?: string; schema?: Record<string, unknown>; noindex?: boolean; }
+const { title = 'Russell Tech | Apps, websites and digital systems', description = 'Russell Tech builds bold, reliable apps, websites, custom CMS platforms and infrastructure for businesses across Leeds and the UK.', image = '/og-default.png', imageAlt = `Russell Tech social image for ${title}`, type = 'website', schema, noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://russell-tech.co.uk').toString();
+const analyticsToken = import.meta.env.PUBLIC_CF_WEB_ANALYTICS_TOKEN;
+const organizationSchema = {
+  '@type': 'Organization',
+  '@id': 'https://russell-tech.co.uk/#organization',
+  name: 'Russell Tech',
+  url: 'https://russell-tech.co.uk/',
+  logo: 'https://russell-tech.co.uk/logo.png',
+  email: 'info@russell-tech.co.uk',
+  description: 'Leeds-based digital agency building apps, websites, bespoke CMS and CRM systems, cloud infrastructure and tested digital products.',
+  areaServed: ['Leeds', 'Yorkshire', 'United Kingdom'],
+  founder: { '@type': 'Person', '@id': 'https://russell-tech.co.uk/#aaron-russell', name: 'Aaron Russell', jobTitle: 'Founder and technical lead', url: 'https://aaron-russell.co.uk', sameAs: ['https://aaron-russell.co.uk'] },
+  knowsAbout: ['Cross-platform app development', 'Website development', 'Bespoke CMS and CRM systems', 'Cloud hosting and infrastructure', 'Quality assurance and software testing'],
+  hasOfferCatalog: {
+    '@type': 'OfferCatalog',
+    name: 'Russell Tech services',
+    itemListElement: ['Cross-platform app development', 'Website development', 'Bespoke CMS and CRM systems', 'Hosting and infrastructure', 'Quality assurance and testing'].map((name, index) => ({
+      '@type': 'Offer',
+      position: index + 1,
+      itemOffered: { '@type': 'Service', name, provider: { '@id': 'https://russell-tech.co.uk/#organization' } },
+    })),
+  },
+};
+const schemaGraph = schema ? [organizationSchema, { '@context': undefined, ...schema }] : [organizationSchema];
+const schemaJson = JSON.stringify({ '@context': 'https://schema.org', '@graph': schemaGraph }, (_, value) => value === undefined ? undefined : value).replace(/</g, '\\u003c');
+Astro.csp?.insertScriptHash(`sha384-${createHash('sha384').update(schemaJson).digest('base64')}`);
+---
+<title>{title}</title><meta name="description" content={description} /><meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} /><meta name="author" content="Aaron Russell" /><link rel="canonical" href={canonical} /><link rel="alternate" type="text/plain" href="/llms.txt" title="Russell Tech AI-readable summary" /><meta property="og:site_name" content="Russell Tech" /><meta property="og:locale" content="en_GB" /><meta property="og:type" content={type} /><meta property="og:title" content={title} /><meta property="og:description" content={description} /><meta property="og:url" content={canonical} /><meta property="og:image" content={new URL(image, Astro.site ?? Astro.url).toString()} /><meta property="og:image:type" content="image/png" /><meta property="og:image:alt" content={imageAlt} /><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /><meta name="twitter:card" content="summary_large_image" /><meta name="twitter:title" content={title} /><meta name="twitter:description" content={description} /><meta name="twitter:image" content={new URL(image, Astro.site ?? Astro.url).toString()} /><meta name="twitter:image:alt" content={imageAlt} />
+<script is:inline type="application/ld+json" set:html={schemaJson}></script>
+{analyticsToken && <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={`{"token":"${analyticsToken}"}`}></script>}

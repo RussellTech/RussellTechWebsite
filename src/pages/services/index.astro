@@ -1,0 +1,59 @@
+---
+import Layout from '../../components/Layout.astro';
+import { services } from '../../data/services';
+---
+<Layout title="Digital services in Leeds | Russell Tech" description="Russell Tech builds cross-platform apps, websites, bespoke CMS and CRM systems, cloud infrastructure and tested digital products across Leeds and the UK.">
+  <section class="page-hero shell"><span class="eyebrow">What we can help with</span><h1>Good ideas.<br /><span class="gradient-text">Properly built.</span></h1><p class="lead">Straightforward digital help for businesses that want things to work well and look the part — from a Leeds-based team with 20 years of experience and no interest in agency waffle.</p></section>
+  <section class="section shell service-list">{services.map(service => <article class="service-block"><a class="service-row-link" href={`/services/${service.slug}/`} aria-label={`Learn more about ${service.title}`}><div class="service-row"><span class="eyebrow">{service.number}</span><h2>{service.title}</h2><p>{service.intro}</p><span class="service-arrow" aria-hidden="true">↗</span></div></a><div class="service-detail"><div class="prose"><p>{service.detail}</p></div><ul class="service-points">{service.points.map(point => <li>{point}</li>)}</ul></div></article>)}</section>
+  <section class="section shell split"><div><span class="eyebrow">How we work</span><h2>Small team.<br /><span class="gradient-text">No runaround.</span></h2></div><div class="prose"><p>We’ll listen to what you’re trying to do, give you an honest view of the options, then get on with building the right thing.</p><p>That might mean a focused website, a new product, a custom publishing workflow or a more reliable home for the systems you already have. We’ll keep it clear, practical and moving forward.</p></div></section>
+  <section class="section shell experience-band"><span class="eyebrow">Why Russell Tech</span><h2>Twenty years of<br /><span class="gradient-text">making things work.</span></h2><div class="experience-copy"><p>We’ve worked on lots of projects across more than ten sectors, from education and professional services to customer-facing products and operational systems.</p><p>You get practical advice, technical depth and a direct line to the person doing the work.</p></div></section>
+</Layout>
+<style>
+  .page-hero{padding:8rem 0 5rem}.page-hero h1{margin:1.6rem 0}.service-list{padding-top:2rem}.service-block{border-top:1px solid var(--line)}.service-row{display:grid;grid-template-columns:.2fr 1fr 1.1fr .1fr;gap:2rem;align-items:center;padding:2rem 0}.service-row h2{margin:0;font-size:clamp(1.6rem,4vw,3.2rem)}.service-row h2 a{text-decoration:none}.service-row h2 a:hover{color:var(--cyan)}.service-row p{max-width:360px;margin:0}.service-arrow{color:var(--cyan);font-size:1.5rem;text-decoration:none}.service-detail{display:grid;grid-template-columns:1.1fr .9fr;gap:5rem;padding:0 0 3rem 14%}.service-detail .prose p{font-size:1.08rem}.service-points{display:grid;grid-template-columns:1fr 1fr;gap:.75rem 1.5rem;padding:0;list-style:none}.service-points li{padding:.65rem 0;border-bottom:1px solid var(--line);color:var(--muted);font-size:.86rem}.service-points li::before{content:'+';margin-right:.5rem;color:var(--cyan);font-family:var(--font-mono)}.split{display:grid;grid-template-columns:1fr 1fr;gap:5rem;border-top:1px solid var(--line)}.split h2{margin-top:1.5rem}.prose p:first-child{font-size:1.3rem;color:var(--ink)}.experience-band{border-top:1px solid var(--line)}.experience-band h2{margin:1.5rem 0 2rem}.experience-copy{display:grid;grid-template-columns:1fr 1fr;gap:5rem;max-width:800px}.experience-copy p{font-size:1.1rem}@media(max-width:800px){.page-hero{padding-top:5rem}.service-row{grid-template-columns:.2fr 1fr .1fr}.service-row p{grid-column:2/4}.service-detail{grid-template-columns:1fr;gap:1rem;padding-left:0}.split,.experience-copy{grid-template-columns:1fr;gap:1rem}.service-points{grid-template-columns:1fr}}
+</style>
+<style>
+  .service-row-link {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    color: inherit;
+    text-decoration: none;
+  }
+  .service-row-link::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, .14) 0 1px, transparent 1px 4px);
+    mix-blend-mode: screen;
+  }
+  .service-row-link:hover::before {
+    opacity: 1;
+    animation: rt-interactive-glitch .9s steps(2, end) infinite;
+  }
+  .service-row {
+    position: relative;
+    z-index: 0;
+    transition: transform .35s cubic-bezier(.2, .75, .25, 1), background .35s ease;
+  }
+  .service-row-link:hover .service-row {
+    transform: translateX(.35rem);
+    background: linear-gradient(90deg, rgba(69, 217, 255, .08), transparent 52%, rgba(255, 79, 199, .08));
+  }
+  .service-row h2 { transition: text-shadow .2s ease; }
+  .service-row-link:hover h2 {
+    text-shadow: -.08em 0 rgba(69, 217, 255, .85), .08em 0 rgba(255, 79, 199, .85);
+  }
+  .service-arrow {
+    transition: transform .25s steps(2, end), color .25s ease;
+  }
+  .service-row-link:hover .service-arrow {
+    color: var(--pink);
+    transform: translateX(.35rem) scale(1.2);
+  }
+  @media (max-width: 800px) {
+    .service-row-link:hover .service-row { transform: none; }
+  }
+</style>

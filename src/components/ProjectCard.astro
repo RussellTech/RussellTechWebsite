@@ -1,0 +1,5 @@
+---
+interface Props { title: string; client: string; category: string; summary: string; slug: string; accent: string; }
+const { title, client, category, summary, slug, accent } = Astro.props;
+---
+<a class="card project-card" href={`/projects/${slug}/`} aria-label={`Read the ${title} case study`}><div class={`project-visual ${accent}`}><div class="project-ui glass"><span></span><span></span><span></span><strong>{category}</strong></div><span class="project-mark">{title.split(' ').map(word => word[0]).join('')}</span></div><div class="project-card-body"><span class="eyebrow">{category} · {client}</span><h3>{title}</h3><p>{summary}</p><span class="case-study-link">Read case study <span aria-hidden="true">↗</span></span></div></a>

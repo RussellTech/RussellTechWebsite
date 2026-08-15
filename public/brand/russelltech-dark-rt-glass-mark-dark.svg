@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="176" height="176" viewBox="0 0 176 176" role="img" aria-labelledby="title description">
+  <title id="title">RussellTech Behind Glass RT mark</title>
+  <desc id="description">A bold RT monogram sits behind two translucent cyan and violet glass panes and splits into spectral colour through their overlap.</desc>
+  <rect width="176" height="176" fill="#030914"/>
+  <defs>
+<g>
+<g id="rt-glyph-0-0">
+<path d="M 16.273438 -28.152344 L 16.273438 -42.625 L 28.65625 -42.625 C 31.246094 -42.625 33.191406 -42.058594 34.488281 -40.933594 C 35.785156 -39.804688 36.433594 -37.992188 36.433594 -35.496094 C 36.433594 -32.902344 35.785156 -31.03125 34.488281 -29.878906 C 33.191406 -28.726562 31.246094 -28.152344 28.65625 -28.152344 Z M 4.96875 -51.40625 L 4.96875 0 L 16.273438 0 L 16.273438 -20.089844 L 27.574219 -20.089844 C 30.40625 -20.089844 32.449219 -19.464844 33.695312 -18.214844 C 34.945312 -16.96875 35.761719 -15 36.144531 -12.3125 C 36.433594 -10.246094 36.648438 -8.089844 36.792969 -5.832031 C 36.9375 -3.574219 37.320312 -1.632812 37.945312 0 L 49.246094 0 C 48.71875 -0.71875 48.324219 -1.597656 48.058594 -2.628906 C 47.796875 -3.660156 47.605469 -4.753906 47.484375 -5.902344 C 47.363281 -7.054688 47.28125 -8.183594 47.230469 -9.289062 C 47.183594 -10.390625 47.136719 -11.351562 47.089844 -12.167969 C 46.992188 -13.464844 46.8125 -14.761719 46.546875 -16.054688 C 46.285156 -17.351562 45.863281 -18.539062 45.289062 -19.621094 C 44.710938 -20.699219 43.96875 -21.636719 43.054688 -22.429688 C 42.144531 -23.21875 40.992188 -23.808594 39.601562 -24.191406 L 39.601562 -24.335938 C 42.480469 -25.488281 44.554688 -27.167969 45.828125 -29.375 C 47.101562 -31.585938 47.734375 -34.199219 47.734375 -37.222656 C 47.734375 -39.191406 47.386719 -41.027344 46.691406 -42.730469 C 45.996094 -44.4375 44.988281 -45.9375 43.667969 -47.230469 C 42.347656 -48.527344 40.765625 -49.546875 38.914062 -50.292969 C 37.066406 -51.035156 34.992188 -51.40625 32.6875 -51.40625 Z M 4.96875 -51.40625 "/>
+</g>
+<g id="rt-glyph-0-1">
+<path d="M 16.34375 -41.902344 L 16.34375 0 L 27.648438 0 L 27.648438 -41.902344 L 43.054688 -41.902344 L 43.054688 -51.40625 L 0.9375 -51.40625 L 0.9375 -41.902344 Z M 16.34375 -41.902344 "/>
+</g>
+</g>
+
+    <linearGradient id="tech-gradient" x1="268" y1="38" x2="440" y2="94" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#45D9FF"/>
+      <stop offset="0.48" stop-color="#3279FF"/>
+      <stop offset="1" stop-color="#A94AF4"/>
+    </linearGradient>
+    <linearGradient id="glass-left-v2" x1="18" y1="24" x2="116" y2="134" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#A9F7FF" stop-opacity="0.5"/>
+      <stop offset="0.26" stop-color="#41D8FF" stop-opacity="0.28"/>
+      <stop offset="0.7" stop-color="#287DFF" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#2654D9" stop-opacity="0.38"/>
+    </linearGradient>
+    <linearGradient id="glass-right-v2" x1="48" y1="22" x2="146" y2="136" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7EC9FF" stop-opacity="0.34"/>
+      <stop offset="0.3" stop-color="#586FFF" stop-opacity="0.23"/>
+      <stop offset="0.72" stop-color="#9D45EF" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#F04BD9" stop-opacity="0.42"/>
+    </linearGradient>
+    <linearGradient id="overlap-refraction-v2" x1="55" y1="30" x2="112" y2="132" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#5DF6FF" stop-opacity="0.58"/>
+      <stop offset="0.34" stop-color="#37C9FF" stop-opacity="0.48"/>
+      <stop offset="0.58" stop-color="#FF47D7" stop-opacity="0.72"/>
+      <stop offset="0.82" stop-color="#BE3DFF" stop-opacity="0.62"/>
+      <stop offset="1" stop-color="#754BFF" stop-opacity="0.46"/>
+    </linearGradient>
+    <linearGradient id="third-pane-v3" x1="48" y1="16" x2="116" y2="143" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#43F1D4" stop-opacity="0.46"/>
+      <stop offset="0.3" stop-color="#42C8FF" stop-opacity="0.28"/>
+      <stop offset="0.62" stop-color="#FF55C9" stop-opacity="0.34"/>
+      <stop offset="1" stop-color="#FF6D8E" stop-opacity="0.46"/>
+    </linearGradient>
+    <linearGradient id="third-edge-density-v3" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#43F1D4" stop-opacity="0.5"/>
+      <stop offset="0.28" stop-color="#43F1D4" stop-opacity="0"/>
+      <stop offset="0.7" stop-color="#FF55C9" stop-opacity="0"/>
+      <stop offset="1" stop-color="#FF6D8E" stop-opacity="0.48"/>
+    </linearGradient>
+    <radialGradient id="third-volume-v3" cx="0.34" cy="0.22" r="0.9">
+      <stop offset="0" stop-color="#82FFE5" stop-opacity="0.5"/>
+      <stop offset="0.44" stop-color="#42C8FF" stop-opacity="0.18"/>
+      <stop offset="0.78" stop-color="#FF55C9" stop-opacity="0.13"/>
+      <stop offset="1" stop-color="#FF6D8E" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="triple-refraction-v3" x1="54" y1="30" x2="111" y2="128" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3AF5D1" stop-opacity="0.72"/>
+      <stop offset="0.28" stop-color="#4BDBFF" stop-opacity="0.66"/>
+      <stop offset="0.55" stop-color="#D65DFF" stop-opacity="0.7"/>
+      <stop offset="0.8" stop-color="#FF4FC7" stop-opacity="0.78"/>
+      <stop offset="1" stop-color="#FF7689" stop-opacity="0.68"/>
+    </linearGradient>
+    <linearGradient id="fourth-pane-v4" x1="21" y1="52" x2="145" y2="105" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#77FFC0" stop-opacity="0.45"/>
+      <stop offset="0.32" stop-color="#45EBD7" stop-opacity="0.3"/>
+      <stop offset="0.68" stop-color="#FFD166" stop-opacity="0.34"/>
+      <stop offset="1" stop-color="#FF8A62" stop-opacity="0.46"/>
+    </linearGradient>
+    <linearGradient id="fourth-edge-density-v4" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#77FFC0" stop-opacity="0.52"/>
+      <stop offset="0.23" stop-color="#77FFC0" stop-opacity="0"/>
+      <stop offset="0.76" stop-color="#FFD166" stop-opacity="0"/>
+      <stop offset="1" stop-color="#FF8A62" stop-opacity="0.5"/>
+    </linearGradient>
+    <radialGradient id="fourth-volume-v4" cx="0.24" cy="0.36" r="0.92">
+      <stop offset="0" stop-color="#B4FFDA" stop-opacity="0.52"/>
+      <stop offset="0.42" stop-color="#45EBD7" stop-opacity="0.18"/>
+      <stop offset="0.76" stop-color="#FFD166" stop-opacity="0.14"/>
+      <stop offset="1" stop-color="#FF8A62" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="quad-refraction-v4" x1="44" y1="50" x2="121" y2="106" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7CFFC4" stop-opacity="0.8"/>
+      <stop offset="0.26" stop-color="#42F0DA" stop-opacity="0.72"/>
+      <stop offset="0.5" stop-color="#5CD7FF" stop-opacity="0.7"/>
+      <stop offset="0.73" stop-color="#FFD166" stop-opacity="0.78"/>
+      <stop offset="1" stop-color="#FF7B6B" stop-opacity="0.76"/>
+    </linearGradient>
+    <radialGradient id="left-volume-v2" cx="0.22" cy="0.16" r="0.92">
+      <stop offset="0" stop-color="#C8FCFF" stop-opacity="0.48"/>
+      <stop offset="0.42" stop-color="#48DFFF" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#256CFF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="right-volume-v2" cx="0.82" cy="0.88" r="0.9">
+      <stop offset="0" stop-color="#FF65DE" stop-opacity="0.5"/>
+      <stop offset="0.46" stop-color="#A34CFA" stop-opacity="0.17"/>
+      <stop offset="1" stop-color="#695AFF" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="overlap-bloom-v2" cx="0.48" cy="0.38" r="0.72">
+      <stop offset="0" stop-color="#FF79E5" stop-opacity="0.64"/>
+      <stop offset="0.32" stop-color="#7DEBFF" stop-opacity="0.34"/>
+      <stop offset="0.7" stop-color="#8D42FF" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#8D42FF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="left-edge-density-v2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#45E2FF" stop-opacity="0.46"/>
+      <stop offset="0.24" stop-color="#45E2FF" stop-opacity="0"/>
+      <stop offset="0.8" stop-color="#307CFF" stop-opacity="0"/>
+      <stop offset="1" stop-color="#307CFF" stop-opacity="0.34"/>
+    </linearGradient>
+    <linearGradient id="right-edge-density-v2" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#688DFF" stop-opacity="0.34"/>
+      <stop offset="0.2" stop-color="#688DFF" stop-opacity="0"/>
+      <stop offset="0.78" stop-color="#E650DD" stop-opacity="0"/>
+      <stop offset="1" stop-color="#E650DD" stop-opacity="0.42"/>
+    </linearGradient>
+    <filter id="pane-ambient-v2" x="-60%" y="-60%" width="220%" height="220%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+    <filter id="volume-soft-v2" x="-55%" y="-55%" width="210%" height="210%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="7"/>
+    </filter>
+    <filter id="refraction-soft-v2" x="-60%" y="-60%" width="220%" height="220%" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="4.5"/>
+    </filter>
+    <clipPath id="left-pane-v2"><rect x="13" y="24" width="101" height="108" rx="35" transform="rotate(-9 63.5 78)"/></clipPath>
+    <clipPath id="right-pane-v2"><rect x="46" y="24" width="101" height="108" rx="35" transform="rotate(9 96.5 78)"/></clipPath>
+    <clipPath id="third-pane-clip-v3"><rect x="54" y="14" width="55" height="129" rx="27" transform="rotate(24 81.5 78.5)"/></clipPath>
+    <clipPath id="fourth-pane-clip-v4"><rect x="20" y="56" width="124" height="46" rx="23" transform="rotate(-18 82 79)"/></clipPath>
+
+  </defs>
+  <g transform="translate(8 10)"><g>
+    <g opacity="0.22" filter="url(#pane-ambient-v2)">
+      <rect x="13" y="24" width="101" height="108" rx="35" transform="rotate(-9 63.5 78)" fill="#26CFFF"/>
+      <rect x="46" y="24" width="101" height="108" rx="35" transform="rotate(9 96.5 78)" fill="#C446F4"/>
+      
+      
+    </g>
+
+    <g transform="translate(30 38) scale(1.06)" fill="#07101F" opacity="1"><use href="#rt-glyph-0-0" x="0" y="70.203125"/><use href="#rt-glyph-0-1" x="50.6875" y="70.203125"/></g>
+
+    <rect x="13" y="24" width="101" height="108" rx="35" transform="rotate(-9 63.5 78)" fill="url(#glass-left-v2)" opacity="1"/>
+    <g clip-path="url(#left-pane-v2)">
+      <ellipse cx="31" cy="31" rx="71" ry="65" fill="url(#left-volume-v2)" filter="url(#volume-soft-v2)"/>
+      <rect x="4" y="18" width="121" height="123" fill="url(#left-edge-density-v2)" opacity="0.54"/>
+      <ellipse cx="98" cy="122" rx="49" ry="39" fill="#2E6FFF" opacity="0.1" filter="url(#volume-soft-v2)"/>
+      <ellipse cx="49" cy="70" rx="57" ry="69" fill="#6CEAFF" opacity="0.1" filter="url(#volume-soft-v2)"/>
+      <g transform="translate(27.4 37.9) scale(1.083 1.06)" fill="#58EEFF" opacity="0.22"><use href="#rt-glyph-0-0" x="0" y="70.203125"/><use href="#rt-glyph-0-1" x="50.6875" y="70.203125"/></g>
+      <g transform="translate(29.4 38.1) scale(1.068 1.06)" fill="#07101F" opacity="0.74"><use href="#rt-glyph-0-0" x="0" y="70.203125"/><use href="#rt-glyph-0-1" x="50.6875" y="70.203125"/></g>
+    </g>
+
+    <rect x="46" y="24" width="101" height="108" rx="35" transform="rotate(9 96.5 78)" fill="url(#glass-right-v2)" opacity="1"/>
+    <g clip-path="url(#right-pane-v2)">
+      <ellipse cx="132" cy="124" rx="69" ry="61" fill="url(#right-volume-v2)" filter="url(#volume-soft-v2)"/>
+      <rect x="38" y="18" width="121" height="123" fill="url(#right-edge-density-v2)" opacity="0.58"/>
+      <ellipse cx="64" cy="34" rx="50" ry="36" fill="#4E8DFF" opacity="0.1" filter="url(#volume-soft-v2)"/>
+      <ellipse cx="113" cy="84" rx="55" ry="67" fill="#C965FF" opacity="0.1" filter="url(#volume-soft-v2)"/>
+      <g transform="translate(32.8 38.4) scale(1.035 1.06)" fill="#F04BDB" opacity="0.26"><use href="#rt-glyph-0-0" x="0" y="70.203125"/><use href="#rt-glyph-0-1" x="50.6875" y="70.203125"/></g>
+      <g transform="translate(30.7 38.2) scale(1.052 1.06)" fill="#07101F" opacity="0.78"><use href="#rt-glyph-0-0" x="0" y="70.203125"/><use href="#rt-glyph-0-1" x="50.6875" y="70.203125"/></g>
+    </g>
+
+    <g clip-path="url(#left-pane-v2)">
+      <g clip-path="url(#right-pane-v2)">
+        <rect x="35" y="15" width="94" height="130" fill="url(#overlap-refraction-v2)" opacity="0.9"/>
+        <ellipse cx="84" cy="67" rx="37" ry="57" fill="url(#overlap-bloom-v2)" filter="url(#refraction-soft-v2)"/>
+        <ellipse cx="63" cy="61" rx="12" ry="48" fill="#5FF3FF" opacity="0.26" filter="url(#refraction-soft-v2)"/>
+        <ellipse cx="104" cy="86" rx="13" ry="50" fill="#FF49D8" opacity="0.34" filter="url(#refraction-soft-v2)"/>
+        <g transform="translate(26.4 37.5) scale(1.098 1.06)" fill="#5CF4FF" opacity="0.48"><use href="#rt-glyph-0-0" x="0" y="70.203125"/><use href="#rt-glyph-0-1" x="50.6875" y="70.203125"/></g>
+        <g transform="translate(34 38.7) scale(1.024 1.06)" fill="#FF45D5" opacity="0.62"><use href="#rt-glyph-0-0" x="0" y="70.203125"/><use href="#rt-glyph-0-1" x="50.6875" y="70.203125"/></g>
+        <g transform="translate(30.1 38.15) scale(1.064 1.06)" fill="#07101F" opacity="0.93"><use href="#rt-glyph-0-0" x="0" y="70.203125"/><use href="#rt-glyph-0-1" x="50.6875" y="70.203125"/></g>
+      </g>
+    </g>
+    
+    
+  </g></g>
+</svg>

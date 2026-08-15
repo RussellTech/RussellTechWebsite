@@ -1,0 +1,107 @@
+[
+  {
+    "route": "/about/",
+    "outputUrl": "/social/about.png",
+    "headline": "Small agency. Big on doing it well."
+  },
+  {
+    "route": "/contact/",
+    "outputUrl": "/social/contact.png",
+    "headline": "Tell us what you’re thinking."
+  },
+  {
+    "route": "/",
+    "outputUrl": "/social/home.png",
+    "headline": "Digital work for businesses that want things done properly."
+  },
+  {
+    "route": "/insights/choosing-the-right-digital-foundation/",
+    "outputUrl": "/social/insights--choosing-the-right-digital-foundation.png",
+    "headline": "Choosing the right digital foundation for a growing business"
+  },
+  {
+    "route": "/insights/",
+    "outputUrl": "/social/insights.png",
+    "headline": "Useful notes for digital work."
+  },
+  {
+    "route": "/insights/website-or-web-app/",
+    "outputUrl": "/social/insights--website-or-web-app.png",
+    "headline": "Do you need a website, or a web app?"
+  },
+  {
+    "route": "/insights/website-redesign-business-case/",
+    "outputUrl": "/social/insights--website-redesign-business-case.png",
+    "headline": "How to decide whether a website redesign is worth it"
+  },
+  {
+    "route": "/insights/what-makes-a-good-business-website/",
+    "outputUrl": "/social/insights--what-makes-a-good-business-website.png",
+    "headline": "What makes a good business website?"
+  },
+  {
+    "route": "/insights/when-to-replace-spreadsheets/",
+    "outputUrl": "/social/insights--when-to-replace-spreadsheets.png",
+    "headline": "When should you replace a spreadsheet-heavy process?"
+  },
+  {
+    "route": "/privacy/",
+    "outputUrl": "/social/privacy.png",
+    "headline": "Clear by default."
+  },
+  {
+    "route": "/projects/",
+    "outputUrl": "/social/projects.png",
+    "headline": "Ideas into useful things."
+  },
+  {
+    "route": "/projects/jansons-direct-linens/",
+    "outputUrl": "/social/projects--jansons-direct-linens.png",
+    "headline": "Jansons Direct Linens"
+  },
+  {
+    "route": "/projects/pe-pro/",
+    "outputUrl": "/social/projects--pe-pro.png",
+    "headline": "PE Pro"
+  },
+  {
+    "route": "/projects/pitcrew/",
+    "outputUrl": "/social/projects--pitcrew.png",
+    "headline": "Pitcrew"
+  },
+  {
+    "route": "/projects/testing-services-uk/",
+    "outputUrl": "/social/projects--testing-services-uk.png",
+    "headline": "Testing Services UK"
+  },
+  {
+    "route": "/services/bespoke-cms-crm-development/",
+    "outputUrl": "/social/services--bespoke-cms-crm-development.png",
+    "headline": "Bespoke CMS and CRM systems built properly."
+  },
+  {
+    "route": "/services/cross-platform-app-development/",
+    "outputUrl": "/social/services--cross-platform-app-development.png",
+    "headline": "Cross-platform app development built properly."
+  },
+  {
+    "route": "/services/hosting-infrastructure/",
+    "outputUrl": "/social/services--hosting-infrastructure.png",
+    "headline": "Hosting and infrastructure built properly."
+  },
+  {
+    "route": "/services/",
+    "outputUrl": "/social/services.png",
+    "headline": "Good ideas. Properly built."
+  },
+  {
+    "route": "/services/quality-assurance-testing/",
+    "outputUrl": "/social/services--quality-assurance-testing.png",
+    "headline": "Quality assurance and testing built properly."
+  },
+  {
+    "route": "/services/website-development/",
+    "outputUrl": "/social/services--website-development.png",
+    "headline": "Website development built properly."
+  }
+]

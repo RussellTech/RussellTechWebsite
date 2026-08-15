@@ -1,0 +1,2 @@
+# Set this only in .dev.vars locally and as an encrypted production secret.
+TURNSTILE_SECRET_KEY=

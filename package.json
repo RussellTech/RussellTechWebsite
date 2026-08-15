@@ -1,0 +1,36 @@
+{
+  "name": "russell-tech",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "brand:generate": "node scripts/generate-brand-assets.mjs",
+    "dev": "astro dev",
+    "build": "astro check && astro build && node scripts/generate-social-images.mjs && node scripts/check-generated-routes.mjs",
+    "preview": "astro preview",
+    "social:generate": "node scripts/generate-social-images.mjs",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:browser": "playwright test",
+    "test:security": "vitest run tests/contact-security.test.mjs",
+    "test:watch": "vitest",
+    "check:routes": "node scripts/check-generated-routes.mjs",
+    "typecheck": "astro check",
+    "verify:security": "node scripts/verify-security-build.mjs",
+    "wrangler:types": "wrangler types"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.5.0",
+    "astro": "^7.2.2"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@playwright/test": "^1.62.1",
+    "prettier": "^3.6.0",
+    "typescript": "^5.9.0",
+    "vite": "^8.2.1",
+    "vitest": "^4.1.10",
+    "wrangler": "^4.123.0"
+  }
+}

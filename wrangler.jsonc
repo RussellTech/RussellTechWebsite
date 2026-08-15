@@ -1,0 +1,31 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "russell-tech",
+  "pages_build_output_dir": "./dist",
+  "compatibility_date": "2026-08-14",
+  "compatibility_flags": ["nodejs_compat"],
+  "send_email": [
+    {
+      "name": "EMAIL",
+      "allowed_destination_addresses": ["info@russell-tech.co.uk"],
+      "allowed_sender_addresses": ["website@russell-tech.co.uk"],
+    },
+  ],
+  "ratelimits": [
+    {
+      "name": "CONTACT_RATE_LIMITER",
+      // Change this only if the namespace is already used in your Cloudflare account.
+      "namespace_id": "2026081401",
+      "simple": { "limit": 5, "period": 60 },
+    },
+  ],
+  "observability": {
+    "enabled": true,
+    "logs": {
+      "enabled": true,
+      "invocation_logs": true,
+      "head_sampling_rate": 1,
+    },
+    "traces": { "enabled": true, "head_sampling_rate": 0.01 },
+  },
+}

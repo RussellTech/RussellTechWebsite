@@ -1,0 +1,26 @@
+---
+import { services } from '../../data/services';
+import Layout from '../../components/Layout.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getCollection } from 'astro:content';
+
+export function getStaticPaths() {
+  return services.map(service => ({ params: { slug: service.slug }, props: { service } }));
+}
+
+const { service } = Astro.props;
+const projects = await getCollection('projects');
+const relatedProjects = service.relatedProjects
+  .map(slug => projects.find(project => project.id.replace(/\.md$/, '') === slug))
+  .filter(Boolean);
+---
+<Layout title={`${service.title} in Leeds | Russell Tech`} description={service.description} type="article" schema={{ '@type': 'Service', name: service.title, description: service.description, provider: { '@type': 'Organization', name: 'Russell Tech', url: 'https://russell-tech.co.uk/' }, areaServed: ['Leeds', 'Yorkshire', 'United Kingdom'], url: `https://russell-tech.co.uk/services/${service.slug}/` }}>
+  <article>
+    <header class="service-hero shell"><a class="muted-link" href="/services/">← All services</a><span class="eyebrow">{service.number} · Russell Tech</span><h1>{service.title}<br /><span class="gradient-text">built properly.</span></h1><p class="lead">{service.description}</p></header>
+    <section class="section shell service-body"><div class="prose"><p>{service.detail}</p><h2>What we can help with</h2></div><ul class="service-points">{service.points.map(point => <li>{point}</li>)}</ul></section>
+    <section class="section shell service-fit"><div><span class="eyebrow">A sensible starting point</span><h2>Not sure where to begin?</h2></div><div class="prose"><p>That’s alright. Tell us what you’re trying to achieve and where things are getting stuck. We’ll help work out whether this service, another route or a mixture of both is the right fit.</p><a class="button primary" href="/contact/">Talk it through ↗</a></div></section>
+<section class="section shell related"><div class="section-heading"><div><span class="eyebrow">Related work</span><h2>Some things we’ve built.</h2></div><a class="button" href="/projects/">All work ↗</a></div><div class="grid two">{relatedProjects.map(project => project && <ProjectCard {...project.data} slug={project.id.replace(/\.md$/, '')} />)}</div></section>
+  </article>
+</Layout>
+<style>.service-hero{padding:4rem 0 5rem}.service-hero>.eyebrow{display:block;margin-top:5rem}.service-hero h1{margin:1.3rem 0}.service-body{display:grid;grid-template-columns:1fr .8fr;gap:6rem;border-top:1px solid var(--line)}.service-body .prose p:first-child{font-size:1.35rem;color:var(--ink)}.service-body h2{margin-top:4rem;font-size:2rem}.service-points{display:grid;grid-template-columns:1fr 1fr;align-content:start;gap:.75rem 1.5rem;padding:0;list-style:none}.service-points li{padding:.75rem 0;border-bottom:1px solid var(--line);color:var(--muted)}.service-points li::before{content:'+';margin-right:.5rem;color:var(--cyan);font-family:var(--font-mono)}.service-fit{display:grid;grid-template-columns:1fr 1fr;gap:5rem;border-top:1px solid var(--line)}.service-fit h2{margin-top:1.5rem}.related{border-top:1px solid var(--line)}@media(max-width:800px){.service-body,.service-fit{grid-template-columns:1fr;gap:2rem}.service-points{grid-template-columns:1fr 1fr}}@media(max-width:500px){.service-points{grid-template-columns:1fr}}
+</style>

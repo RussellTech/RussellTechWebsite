@@ -1,0 +1,96 @@
+---
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import SeoHead from './SeoHead.astro';
+import { getSocialImagePath } from '../data/social-images.mjs';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  imageAlt?: string;
+  type?: string;
+  schema?: Record<string, unknown>;
+  noindex?: boolean;
+}
+
+const props = Astro.props;
+const socialImage = props.image ?? getSocialImagePath(Astro.url.pathname);
+---
+
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#030914" />
+    <meta name="application-name" content="Russell Tech" />
+    <meta name="apple-mobile-web-app-title" content="RussellTech" />
+    <meta name="msapplication-TileColor" content="#030914" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link
+      rel="icon"
+      href="/favicon-32x32.png"
+      type="image/png"
+      sizes="32x32"
+    />
+    <link
+      rel="icon"
+      href="/favicon-16x16.png"
+      type="image/png"
+      sizes="16x16"
+    />
+    <link
+      id="theme-favicon"
+      rel="icon"
+      href="/favicon-dark.svg"
+      type="image/svg+xml"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/apple-touch-icon.png"
+    />
+    <link rel="manifest" href="/site.webmanifest" />
+    <script is:inline src="/theme.js"></script>
+    <script is:inline>
+      document.documentElement.classList.add('rt-motion-fallback');
+    </script>
+    <SeoHead {...props} image={socialImage} />
+  </head>
+  <body>
+    <Header />
+    <main><slot /></main>
+    <Footer />
+    <script is:inline>
+      if (document.documentElement.classList.contains('rt-motion-fallback')) {
+        const revealItems = document.querySelectorAll(
+          '.section, .page-hero, .trust-strip, .project-card, .founder-card, .post-row'
+        );
+        const reveal = (item) => item.classList.add('is-visible');
+
+        if ('IntersectionObserver' in window) {
+          const observer = new IntersectionObserver(
+            (entries, currentObserver) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  reveal(entry.target);
+                  currentObserver.unobserve(entry.target);
+                }
+              });
+            },
+            { threshold: 0.12 }
+          );
+          revealItems.forEach((item) => observer.observe(item));
+        } else {
+          revealItems.forEach(reveal);
+        }
+
+        window.setTimeout(() => revealItems.forEach(reveal), 1500);
+      }
+    </script>
+  </body>
+</html>
