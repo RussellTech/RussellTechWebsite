@@ -12,7 +12,7 @@ The Russell Tech agency website: a static Astro site for showcasing web developm
 
 ## Local development
 
-Requirements: Node.js 22 and npm.
+Requirements: Node.js 24 LTS and npm.
 
 ```sh
 npm ci
