@@ -124,7 +124,8 @@ const additions = `
     <clipPath id="fourth-pane-clip-v4"><rect x="20" y="56" width="124" height="46" rx="23" transform="rotate(-18 82 79)"/></clipPath>
 `;
 
-const oldGlassDefinitions = /\s*<linearGradient id="cyan-pane"[\s\S]*?<clipPath id="right-pane-clip">[\s\S]*?<\/clipPath>/;
+const oldGlassDefinitions =
+  /\s*<linearGradient id="cyan-pane"[\s\S]*?<clipPath id="right-pane-clip">[\s\S]*?<\/clipPath>/;
 
 const rtGlyphs =
   '<use href="#rt-glyph-0-0" x="0" y="70.203125"/><use href="#rt-glyph-0-1" x="50.6875" y="70.203125"/>';
@@ -169,13 +170,30 @@ function glassMark(dark) {
   <g transform="translate(30 38) scale(1.06)" fill="${rtFill}">${rtGlyphs}</g>`;
 }
 
-function glassMarkBehind(dark, alwaysDark = false, extraPane = false, fourthPane = false) {
+function glassMarkBehind(
+  dark,
+  alwaysDark = false,
+  extraPane = false,
+  fourthPane = false,
+) {
   const rtFill = alwaysDark ? "#07101F" : dark ? "#F7FAFF" : "#07101F";
   const ambientOpacity = dark ? 0.22 : 0.13;
   const paneOpacity = dark ? 1 : 0.88;
   const overlapOpacity = dark ? 0.9 : 0.62;
-  const leftRefractionOpacity = alwaysDark ? (dark ? 0.74 : 0.58) : dark ? 0.34 : 0.22;
-  const rightRefractionOpacity = alwaysDark ? (dark ? 0.78 : 0.62) : dark ? 0.38 : 0.24;
+  const leftRefractionOpacity = alwaysDark
+    ? dark
+      ? 0.74
+      : 0.58
+    : dark
+      ? 0.34
+      : 0.22;
+  const rightRefractionOpacity = alwaysDark
+    ? dark
+      ? 0.78
+      : 0.62
+    : dark
+      ? 0.38
+      : 0.24;
   const leftRefraction = alwaysDark
     ? `<g transform="translate(27.4 37.9) scale(1.083 1.06)" fill="#58EEFF" opacity="${dark ? 0.22 : 0.16}">${rtGlyphs}</g>
       <g transform="translate(29.4 38.1) scale(1.068 1.06)" fill="#07101F" opacity="${leftRefractionOpacity}">${rtGlyphs}</g>`
@@ -300,7 +318,10 @@ function prepare(source, dark, kind, mode = "front") {
   ) {
     svg = svg
       .replace("RussellTech Twin Glass logo", "RussellTech Behind Glass logo")
-      .replace("RussellTech Twin Glass RT mark", "RussellTech Behind Glass RT mark")
+      .replace(
+        "RussellTech Twin Glass RT mark",
+        "RussellTech Behind Glass RT mark",
+      )
       .replace(
         "Two translucent cyan and violet glass panes create a spectral refracted colour where they overlap, framing a bold RT monogram beside the RussellTech wordmark.",
         "A bold RT monogram sits behind two translucent cyan and violet glass panes, splitting into spectral colour through their overlap beside the RussellTech wordmark.",
@@ -319,12 +340,12 @@ function prepare(source, dark, kind, mode = "front") {
       mode === "quad-refraction"
         ? glassMarkBehind(dark, true, true, true)
         : mode === "multi-refraction"
-        ? glassMarkBehind(dark, true, true)
-        : mode === "dark-rt"
-        ? glassMarkBehind(dark, true)
-        : mode === "behind"
-          ? glassMarkBehind(dark)
-          : glassMark(dark);
+          ? glassMarkBehind(dark, true, true)
+          : mode === "dark-rt"
+            ? glassMarkBehind(dark, true)
+            : mode === "behind"
+              ? glassMarkBehind(dark)
+              : glassMark(dark);
     return `${svg.slice(0, start)}  <g transform="translate(16 17)">${markArtwork}</g>\n${svg.slice(end)}`;
   }
 
@@ -335,12 +356,12 @@ function prepare(source, dark, kind, mode = "front") {
     mode === "quad-refraction"
       ? glassMarkBehind(dark, true, true, true)
       : mode === "multi-refraction"
-      ? glassMarkBehind(dark, true, true)
-      : mode === "dark-rt"
-      ? glassMarkBehind(dark, true)
-      : mode === "behind"
-        ? glassMarkBehind(dark)
-        : glassMark(dark);
+        ? glassMarkBehind(dark, true, true)
+        : mode === "dark-rt"
+          ? glassMarkBehind(dark, true)
+          : mode === "behind"
+            ? glassMarkBehind(dark)
+            : glassMark(dark);
   return `${svg.slice(0, start)}  <g transform="translate(8 10)">${markArtwork}</g>\n</svg>\n`;
 }
 
@@ -526,11 +547,17 @@ const jobs = [
 fs.mkdirSync(outputDirectory, { recursive: true });
 
 for (const job of jobs) {
-  const source = fs.readFileSync(path.join(sourceDirectory, job.source), "utf8");
+  const source = fs.readFileSync(
+    path.join(sourceDirectory, job.source),
+    "utf8",
+  );
   const result = prepare(source, job.dark, job.kind, job.mode);
   const svgPath = path.join(outputDirectory, job.output);
   fs.writeFileSync(svgPath, result);
-  await sharp(Buffer.from(result)).resize({ width: job.width }).png().toFile(path.join(outputDirectory, job.png));
+  await sharp(Buffer.from(result))
+    .resize({ width: job.width })
+    .png()
+    .toFile(path.join(outputDirectory, job.png));
 }
 
 const darkMark = fs.readFileSync(
@@ -539,7 +566,9 @@ const darkMark = fs.readFileSync(
 await sharp(darkMark)
   .resize({ width: 32, height: 32 })
   .png()
-  .toFile(path.join(outputDirectory, "russelltech-refractive-glass-mark-32.png"));
+  .toFile(
+    path.join(outputDirectory, "russelltech-refractive-glass-mark-32.png"),
+  );
 
 const behindDarkMark = fs.readFileSync(
   path.join(outputDirectory, "russelltech-behind-glass-mark-dark.svg"),
@@ -558,12 +587,20 @@ await sharp(darkRtMark)
   .toFile(path.join(outputDirectory, "russelltech-dark-rt-glass-mark-32.png"));
 
 const multiRefractionMark = fs.readFileSync(
-  path.join(outputDirectory, "russelltech-multi-refraction-glass-mark-dark.svg"),
+  path.join(
+    outputDirectory,
+    "russelltech-multi-refraction-glass-mark-dark.svg",
+  ),
 );
 await sharp(multiRefractionMark)
   .resize({ width: 32, height: 32 })
   .png()
-  .toFile(path.join(outputDirectory, "russelltech-multi-refraction-glass-mark-32.png"));
+  .toFile(
+    path.join(
+      outputDirectory,
+      "russelltech-multi-refraction-glass-mark-32.png",
+    ),
+  );
 
 const quadRefractionMark = fs.readFileSync(
   path.join(outputDirectory, "russelltech-quad-refraction-glass-mark-dark.svg"),
@@ -571,4 +608,6 @@ const quadRefractionMark = fs.readFileSync(
 await sharp(quadRefractionMark)
   .resize({ width: 32, height: 32 })
   .png()
-  .toFile(path.join(outputDirectory, "russelltech-quad-refraction-glass-mark-32.png"));
+  .toFile(
+    path.join(outputDirectory, "russelltech-quad-refraction-glass-mark-32.png"),
+  );

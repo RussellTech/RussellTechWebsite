@@ -6,7 +6,9 @@ const browserMessages = [];
 page.on("console", (message) =>
   browserMessages.push(`${message.type()}: ${message.text()}`),
 );
-page.on("pageerror", (error) => browserMessages.push(`pageerror: ${error.message}`));
+page.on("pageerror", (error) =>
+  browserMessages.push(`pageerror: ${error.message}`),
+);
 
 await page.goto("http://127.0.0.1:4321/", { waitUntil: "networkidle" });
 
@@ -41,9 +43,13 @@ await page.screenshot({ path: "test-results/brand-light.png", fullPage: true });
 await page.setViewportSize({ width: 390, height: 844 });
 await page.reload({ waitUntil: "networkidle" });
 const horizontalOverflow = await page.evaluate(
-  () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
+  () =>
+    document.documentElement.scrollWidth > document.documentElement.clientWidth,
 );
-await page.screenshot({ path: "test-results/brand-mobile.png", fullPage: false });
+await page.screenshot({
+  path: "test-results/brand-mobile.png",
+  fullPage: false,
+});
 
 console.log(
   JSON.stringify({ dark, light, horizontalOverflow, browserMessages }, null, 2),

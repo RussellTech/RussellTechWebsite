@@ -24,7 +24,10 @@ for (const [family, theme] of [
   const page = await context.newPage();
   await page.goto(
     pathToFileURL(
-      path.join(brandDirectory, `russelltech-${family}-glass-horizontal-${theme}.svg`),
+      path.join(
+        brandDirectory,
+        `russelltech-${family}-glass-horizontal-${theme}.svg`,
+      ),
     ).href,
   );
   await page.waitForTimeout(250);

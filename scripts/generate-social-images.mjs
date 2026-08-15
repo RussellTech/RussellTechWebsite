@@ -56,7 +56,8 @@ const collectHtmlFiles = (directory) => {
   for (const entry of fs.readdirSync(directory, { withFileTypes: true })) {
     const entryPath = path.join(directory, entry.name);
     if (entry.isDirectory()) collectHtmlFiles(entryPath);
-    if (entry.isFile() && entry.name === "index.html") htmlFiles.push(entryPath);
+    if (entry.isFile() && entry.name === "index.html")
+      htmlFiles.push(entryPath);
   }
 };
 collectHtmlFiles(distDirectory);
@@ -146,7 +147,10 @@ for (const htmlFile of htmlFiles.sort()) {
   const { fontSize, maxCharacters } = getHeadlineStyle(headline);
   const lines = wrapHeadline(headline, maxCharacters);
   const lineHeight = Math.round(fontSize * 1.08);
-  const firstLineY = Math.max(260, 352 - (lines.length - 1) * lineHeight * 0.52);
+  const firstLineY = Math.max(
+    260,
+    352 - (lines.length - 1) * lineHeight * 0.52,
+  );
   const headlineLines = lines
     .map(
       (line, index) =>
