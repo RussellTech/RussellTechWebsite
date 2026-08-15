@@ -26,6 +26,7 @@ const makeRequest = (
     origin = "https://russell-tech.co.uk",
     fetchSite = "same-origin",
     contentLength,
+    contentType = "application/x-www-form-urlencoded",
   } = {},
 ) => {
   const body = new URLSearchParams(fields).toString();
@@ -34,7 +35,7 @@ const makeRequest = (
   return new Request("https://russell-tech.co.uk/api/contact", {
     method: "POST",
     headers: {
-      "content-type": "application/x-www-form-urlencoded",
+      "content-type": contentType,
       "content-length": String(contentLength ?? byteLength),
       ...(origin ? { origin } : {}),
       ...(fetchSite ? { "sec-fetch-site": fetchSite } : {}),
@@ -61,6 +62,17 @@ const passTurnstile = () => {
     }),
   );
 };
+
+const makeRawRequest = (body, headers = {}) =>
+  new Request("https://russell-tech.co.uk/api/contact", {
+    method: "POST",
+    headers: {
+      origin: "https://russell-tech.co.uk",
+      "content-type": "application/x-www-form-urlencoded",
+      ...headers,
+    },
+    body,
+  });
 
 describe("contact endpoint hardening", () => {
   it("rejects cross-site submissions before any external call", async () => {
@@ -93,6 +105,41 @@ describe("contact endpoint hardening", () => {
     );
 
     expect(response.status).toBe(413);
+  });
+
+  it("rejects unsupported content types and missing content lengths", async () => {
+    const unsupported = await handleContact(
+      makeRequest(validFields, { contentType: "application/json" }),
+      makeEnv(vi.fn()),
+    );
+    const missingLength = await handleContact(
+      makeRawRequest(new URLSearchParams(validFields), {
+        "content-length": "",
+      }),
+      makeEnv(vi.fn()),
+    );
+
+    expect(unsupported.status).toBe(415);
+    expect(missingLength.status).toBe(411);
+  });
+
+  it("rejects malformed form bodies and duplicate fields", async () => {
+    const malformed = await handleContact(
+      makeRawRequest("not-a-form", {
+        "content-type": "multipart/form-data; boundary=missing",
+        "content-length": "11",
+      }),
+      makeEnv(vi.fn()),
+    );
+    const duplicate = await handleContact(
+      makeRawRequest(`${new URLSearchParams(validFields)}&name=Another+Name`, {
+        "content-length": "999",
+      }),
+      makeEnv(vi.fn()),
+    );
+
+    expect(malformed.status).toBe(400);
+    expect(duplicate.status).toBe(400);
   });
 
   it("fails closed when the Turnstile secret is not configured", async () => {
@@ -132,6 +179,29 @@ describe("contact endpoint hardening", () => {
     expect(globalThis.fetch).not.toHaveBeenCalled();
   });
 
+  it("returns success for a honeypot submission without sending email", async () => {
+    const send = vi.fn();
+    const response = await handleContact(
+      makeRequest({ ...validFields, website: "automated submission" }),
+      makeEnv(send),
+    );
+
+    expect(response.status).toBe(200);
+    expect(send).not.toHaveBeenCalled();
+  });
+
+  it("rejects a missing Turnstile token before verification", async () => {
+    globalThis.fetch = vi.fn();
+
+    const response = await handleContact(
+      makeRequest({ ...validFields, "cf-turnstile-response": "" }),
+      makeEnv(vi.fn()),
+    );
+
+    expect(response.status).toBe(400);
+    expect(globalThis.fetch).not.toHaveBeenCalled();
+  });
+
   it("rejects a Turnstile token issued for another action", async () => {
     const send = vi.fn();
     const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
@@ -150,6 +220,31 @@ describe("contact endpoint hardening", () => {
     expect(warn).toHaveBeenCalledWith(
       expect.objectContaining({ event: "turnstile_verification_failed" }),
     );
+  });
+
+  it("handles Turnstile outages and email delivery failures", async () => {
+    vi.spyOn(console, "error").mockImplementation(() => {});
+    globalThis.fetch = vi.fn(async () => {
+      throw new Error("Turnstile unavailable");
+    });
+
+    const verificationError = await handleContact(
+      makeRequest(),
+      makeEnv(vi.fn()),
+    );
+
+    passTurnstile();
+    const deliveryError = await handleContact(
+      makeRequest(),
+      makeEnv(
+        vi.fn(async () => {
+          throw new Error("Email unavailable");
+        }),
+      ),
+    );
+
+    expect(verificationError.status).toBe(503);
+    expect(deliveryError.status).toBe(503);
   });
 
   it("escapes all user-controlled HTML before sending email", async () => {

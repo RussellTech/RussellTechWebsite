@@ -12,6 +12,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "vitest run",
+    "test:coverage": "vitest run --coverage",
     "test:browser": "playwright test",
     "test:security": "vitest run tests/contact-security.test.mjs",
     "test:watch": "vitest",
@@ -27,6 +28,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
     "@playwright/test": "^1.62.1",
+    "@vitest/coverage-v8": "^4.1.10",
     "prettier": "^3.6.0",
     "sharp": "^0.35.3",
     "typescript": "^5.9.0",
