@@ -1,4 +1,4 @@
-type RuntimeEnv = Cloudflare.Env & {
+export type RuntimeEnv = Cloudflare.Env & {
   CONTACT_RATE_LIMITER?: RateLimit;
   TURNSTILE_SECRET_KEY?: string;
 };
@@ -22,6 +22,7 @@ const ALLOWED_FIELDS = new Set([
   "message",
   "website",
   "cf-turnstile-response",
+  "static-form-name",
 ]);
 const ALLOWED_PROJECT_TYPES = new Set([
   "Mobile app",

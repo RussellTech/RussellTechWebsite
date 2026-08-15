@@ -21,7 +21,8 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
     <form
       class="contact-form card"
       data-contact-form
-      action="/api/contact"
+      data-static-form-name="contact"
+      action="/contact/"
       method="POST"
       accept-charset="UTF-8"
     >
@@ -83,6 +84,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
         maxlength="200"
         aria-hidden="true"
       />
+      <input type="hidden" name="static-form-name" value="contact" />
       {
         turnstileSiteKey && (
           <div
@@ -122,9 +124,6 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 </Layout>
 
 <script>
-  type ContactResponse = { message?: unknown };
-  type TurnstileApi = { reset: () => void };
-
   const form = document.querySelector<HTMLFormElement>("[data-contact-form]");
   const status = document.querySelector<HTMLElement>("[data-form-status]");
   const fields = Array.from(
@@ -178,15 +177,29 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
     });
   });
 
-  form?.addEventListener("submit", async (event) => {
-    event.preventDefault();
+  const query = new URLSearchParams(window.location.search);
+  if (query.get("submitted") === "success" && status) {
+    status.textContent = "Transmission received — we’ll be in touch.";
+    status.classList.add("is-success");
+  } else if (query.get("error") && status) {
+    const messages: Record<string, string> = {
+      blocked:
+        "Something went wrong. Please email info@russell-tech.co.uk instead.",
+      invalid: "Please check the highlighted fields before sending.",
+      rate_limited: "Please wait a few minutes before sending another message.",
+      verification: "Please complete the spam check before sending your message.",
+    };
+    status.textContent =
+      messages[query.get("error") ?? ""] ?? messages.blocked;
+    status.classList.add("is-error");
+  }
+
+  form?.addEventListener("submit", (event) => {
     if (!form || !status) return;
 
-    const button = form.querySelector<HTMLButtonElement>("button");
-    const fallbackMessage =
-      "Something went wrong. Please email info@russell-tech.co.uk instead.";
     const invalidFields = fields.filter((field) => validateField(field));
     if (invalidFields.length > 0) {
+      event.preventDefault();
       status.textContent = "Please check the highlighted fields before sending.";
       status.classList.remove("is-success", "is-sending");
       status.classList.add("is-error");
@@ -197,40 +210,8 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
     status.textContent = "Opening secure channel…";
     status.classList.remove("is-success", "is-error", "is-sending");
     status.classList.add("is-sending");
+    const button = form.querySelector<HTMLButtonElement>("button");
     if (button) button.disabled = true;
-
-    try {
-      const response = await fetch(form.action, {
-        method: "POST",
-        body: new FormData(form),
-        headers: { Accept: "application/json" },
-      });
-      const payload = (await response.json()) as ContactResponse;
-
-      if (!response.ok) {
-        throw new Error(
-          typeof payload.message === "string"
-            ? payload.message
-            : fallbackMessage,
-        );
-      }
-
-      form.reset();
-      status.textContent = "Transmission received — we’ll be in touch.";
-      status.classList.remove("is-sending");
-      status.classList.add("is-success");
-    } catch (error) {
-      status.textContent =
-        error instanceof Error ? error.message : fallbackMessage;
-      status.classList.remove("is-sending");
-      status.classList.add("is-error");
-    } finally {
-      const turnstile = (
-        window as typeof window & { turnstile?: TurnstileApi }
-      ).turnstile;
-      turnstile?.reset();
-      if (button) button.disabled = false;
-    }
   });
 </script>
 

@@ -1,12 +1,14 @@
 import { expect, test } from "@playwright/test";
 
 test.describe("contact form", () => {
-  test("submits successfully and resets the form", async ({ page }) => {
-    await page.route("**/api/contact", async (route) => {
+  test("submits successfully and shows the redirected status", async ({
+    page,
+  }) => {
+    await page.route("**/contact/", async (route) => {
+      if (route.request().method() !== "POST") return route.continue();
       await route.fulfill({
-        contentType: "application/json",
-        body: JSON.stringify({ message: "Sent" }),
-        status: 200,
+        status: 303,
+        headers: { location: "/contact/?submitted=success" },
       });
     });
 
@@ -25,21 +27,15 @@ test.describe("contact form", () => {
     await expect(page.getByRole("status")).toHaveText(
       "Transmission received — we’ll be in touch.",
     );
-    await expect(page.getByLabel("Name")).toHaveValue("");
-    await expect(page.getByLabel("Email")).toHaveValue("");
-    await expect(
-      page.getByRole("button", { name: /Send transmission/ }),
-    ).toBeEnabled();
+    await expect(page).toHaveURL(/\/contact\/\?submitted=success$/);
   });
 
-  test("shows the API error and re-enables submission", async ({ page }) => {
-    await page.route("**/api/contact", async (route) => {
+  test("shows the redirected error", async ({ page }) => {
+    await page.route("**/contact/", async (route) => {
+      if (route.request().method() !== "POST") return route.continue();
       await route.fulfill({
-        contentType: "application/json",
-        body: JSON.stringify({
-          message: "Please check the form fields and try again.",
-        }),
-        status: 400,
+        status: 303,
+        headers: { location: "/contact/?error=invalid" },
       });
     });
 
@@ -54,11 +50,9 @@ test.describe("contact form", () => {
     await page.getByRole("button", { name: /Send transmission/ }).click();
 
     await expect(page.getByRole("status")).toHaveText(
-      "Please check the form fields and try again.",
+      "Please check the highlighted fields before sending.",
     );
-    await expect(
-      page.getByRole("button", { name: /Send transmission/ }),
-    ).toBeEnabled();
+    await expect(page).toHaveURL(/\/contact\/\?error=invalid$/);
   });
 });
 
