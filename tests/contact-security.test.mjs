@@ -46,6 +46,7 @@ const makeRequest = (
 
 const makeEnv = (send, secret = "test-secret") => ({
   ...(secret ? { TURNSTILE_SECRET_KEY: secret } : {}),
+  CONTACT_RATE_LIMITER: makeRateLimiter(true),
   EMAIL: { send },
 });
 
@@ -146,6 +147,17 @@ describe("contact endpoint hardening", () => {
     vi.spyOn(console, "error").mockImplementation(() => {});
 
     const response = await handleContact(makeRequest(), makeEnv(vi.fn(), ""));
+
+    expect(response.status).toBe(503);
+  });
+
+  it("fails closed when the contact rate limiter is not configured", async () => {
+    vi.spyOn(console, "error").mockImplementation(() => {});
+
+    const response = await handleContact(makeRequest(), {
+      ...makeEnv(vi.fn()),
+      CONTACT_RATE_LIMITER: undefined,
+    });
 
     expect(response.status).toBe(503);
   });

@@ -34,7 +34,9 @@ const makeRequest = (overrides = {}) => {
 
 const makeEnv = (send = vi.fn(), secret = "test-secret", limiter) => ({
   ...(secret ? { TURNSTILE_SECRET_KEY: secret } : {}),
-  ...(limiter ? { CONTACT_RATE_LIMITER: limiter } : {}),
+  CONTACT_RATE_LIMITER: limiter ?? {
+    limit: vi.fn(async () => ({ success: true })),
+  },
   EMAIL: { send },
 });
 

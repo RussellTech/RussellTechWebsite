@@ -14,6 +14,6 @@ jobs:
 
     steps:
       - name: Check dependency changes
-        uses: actions/dependency-review-action@v4
+        uses: actions/dependency-review-action@781e085422ef0d1a6c8bb0ebb85e9e5c0e7656ca # v4
         with:
           fail-on-severity: high

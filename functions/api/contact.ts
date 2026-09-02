@@ -160,16 +160,22 @@ export const handleContact = async (
     return json("Request not allowed.", 403);
   }
 
-  if (env.CONTACT_RATE_LIMITER) {
-    const clientKey = request.headers.get("cf-connecting-ip") ?? "unknown";
-    const { success } = await env.CONTACT_RATE_LIMITER.limit({
-      key: `contact:${clientKey}`,
+  if (!env.CONTACT_RATE_LIMITER) {
+    logEvent("error", "contact_configuration_error", request, {
+      reason: "missing_rate_limiter",
+      status: "503",
     });
+    return json("The contact form is temporarily unavailable.", 503);
+  }
 
-    if (!success) {
-      logEvent("warn", "contact_rate_limited", request, { status: "429" });
-      return json("Too many enquiries. Please try again later.", 429);
-    }
+  const clientKey = request.headers.get("cf-connecting-ip") ?? "unknown";
+  const { success } = await env.CONTACT_RATE_LIMITER.limit({
+    key: `contact:${clientKey}`,
+  });
+
+  if (!success) {
+    logEvent("warn", "contact_rate_limited", request, { status: "429" });
+    return json("Too many enquiries. Please try again later.", 429);
   }
 
   if (!isSupportedContentType(request)) {
